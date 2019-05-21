@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    background-color: #D4F2F2;
+}
+
+.nameApp {
+    width: 100%;
+    height: 200px;
+    background-color: #0F3E8A;
+    color: #D4F2F2;
+    text-align: center;
+    font-size: 50px;
+    padding: 35px;
+    border: 20px solid #0F3E8A;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bolder;
+}
+
+.listContact {
+    width: 100%;
+    height: 100px;
+    background-color: beige;
+    display: block;
+}
+.dati {
+    width: 100px;
+    height: auto;
+    background-color: aqua;
+    color: black;
+}
+
+.newBox {
+    position: fixed;
+    width: 25%;
+    height: 200px;
+    background-color: #639EA4;
+    padding: 10px;
+    top: 80%;
+    left: 75%;
+}
