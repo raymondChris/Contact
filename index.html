@@ -53,7 +53,7 @@
             <div class="ltrLabel">Z</div>
             <div class="ltrLabel">#</div>
         </div>
-        <div class="listWindow"></div>
+        <div class="listWindow"></div>      <!--Conterrà le card dei contatti-->
         <div class="btnNew">+</div>
     </div>
     </div>
@@ -61,13 +61,12 @@
 <script>
     var globalVar;
     window.onload = function() {
-        //let frmContact = 
-        console.log(document.getElementsByName("newContactForm")[0]);
+        let listContact = document.getElementsByClassName("listWindow")[0];
         let btnNew = document.getElementsByClassName("btnNew")[0];
         let frmWindow = document.getElementsByClassName("formWindow")[0];
         let frmButtonX = document.getElementsByClassName("btn")[0];
         let frmButtonOK = document.getElementsByClassName("btn")[1];
-        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK);
+        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact);
         globalVar.hide();
         globalVar.init();
     };

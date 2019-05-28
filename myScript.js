@@ -6,14 +6,16 @@
  * @param {HTMLElement} frmWindow     //<div class="formWindow"></div
  * @param {HTMLElement} frmButtonX
  * @param {HTMLElement} frmButtonOK
- *
+ * @param {HTMLElement} listContact
  */
 
- function ButtonCons(btnNew,frmWindow,frmButtonX,frmButtonOK) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact) {
+     this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
      this.pButtonX = frmButtonX;
      this.pButtonOK = frmButtonOK;
+     this.contact = [];
      //this.pFrmContact =  frmContact;
  };
 
@@ -35,6 +37,16 @@ ButtonCons.prototype.hide = function hide() {
 }
 
 ButtonCons.prototype.newContact = function newContact() {
-    console.log(this.pFrmWindow);
+    let name = document.forms["newContactForm"]["firstName"].value;
+    let lastname = document.forms["newContactForm"]["lastName"].value;
+    let phnumber = document.forms["newContactForm"]["phoneNumber"].value;
+    let card = document.createElement("div");
+    let contact = { Name: name,
+                    Lastname: lastname,
+                    Phone: phnumber};
 
+    this.contact.push(contact);
+    card.classList.add("card");
+    card.innerHTML = "Name: " + contact.Name + '<br/>' + "Last Name: " + contact.Lastname + '<br/>' +"Phone Number: " + contact.Phone;
+    this.pListContact.appendChild(card);
 }
