@@ -22,8 +22,10 @@
 ButtonCons.prototype.init = function init() {
     this.pButtonX.addEventListener ('click', () => {this.hide()});
     this.pButtonOK.addEventListener ('click', () => {   this.newContact(),
-                                                        this.hide()});
-    this.pBtnNew.addEventListener ('click', () => {this.visible()});
+                                                        this.hide(),
+                                                        this.clear()});
+    this.pBtnNew.addEventListener ('click', () => { this.visible(),
+                                                    this.clear()});
 };
 
 ButtonCons.prototype.visible = function visible() {
@@ -49,4 +51,13 @@ ButtonCons.prototype.newContact = function newContact() {
     card.classList.add("card");
     card.innerHTML = "Name: " + contact.Name + '<br/>' + "Last Name: " + contact.Lastname + '<br/>' +"Phone Number: " + contact.Phone;
     this.pListContact.appendChild(card);
+    
 }
+
+ButtonCons.prototype.clear = function clear() {
+    document.forms["newContactForm"]["firstName"].value = "";
+    document.forms["newContactForm"]["lastName"].value= "";
+    document.forms["newContactForm"]["phoneNumber"].value = "";
+}
+
+// altro file
