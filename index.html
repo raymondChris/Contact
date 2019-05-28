@@ -8,15 +8,67 @@
     <link rel="stylesheet" type="text/css" href="myStyle.css">
 </head>
 <body>
-    <div class="nameApp">CONTACTS</div>
-    <div class="listContact">
-        <div class="dati" id="demo"></div>
+    <div class="formWindow">
+        <form>
+            <label for="fName">Name</label>
+            <input type="text" id="fName" name="firstName">
+            <label for="lName">Last Name</label>
+            <input type="text" id="lName" name="lastName">
+            <label for="pNumber">Phone Number</label>
+            <input type="text" id="pNumber" name="phoneNumber">
+            <div class="btnPanel">
+                <div class="btn">X</div>
+                <div class="btn">OK</div>
+            </div>
+        </form> 
     </div>
-    <div class="newBox">
-        <h3>New Contact</h3>
-    <input id="nameContact">
-    <button onclick="addFunction()">New</button>
+    <div class="nameApp">CONTACS</div>
+    <div class="windowApp">
+        <div class="ltrNavBar">
+            <div class="ltrLabel">A</div>
+            <div class="ltrLabel">B</div>
+            <div class="ltrLabel">C</div>
+            <div class="ltrLabel">D</div>
+            <div class="ltrLabel">E</div>
+            <div class="ltrLabel">F</div>
+            <div class="ltrLabel">G</div>
+            <div class="ltrLabel">H</div>
+            <div class="ltrLabel">I</div>
+            <div class="ltrLabel">J</div>
+            <div class="ltrLabel">K</div>
+            <div class="ltrLabel">L</div>
+            <div class="ltrLabel">M</div>
+            <div class="ltrLabel">N</div>
+            <div class="ltrLabel">O</div>
+            <div class="ltrLabel">P</div>
+            <div class="ltrLabel">Q</div>
+            <div class="ltrLabel">R</div>
+            <div class="ltrLabel">S</div>
+            <div class="ltrLabel">T</div>
+            <div class="ltrLabel">U</div>
+            <div class="ltrLabel">V</div>
+            <div class="ltrLabel">W</div>
+            <div class="ltrLabel">X</div>
+            <div class="ltrLabel">Y</div>
+            <div class="ltrLabel">Z</div>
+            <div class="ltrLabel">#</div>
+        </div>
+        <div class="listWindow"></div>
+        <div class="btnNew">+</div>
     </div>
-<script src="myScript.js"></script>
+    </div>
+<script src="./myScript.js"></script>
+<script>
+    var globalVar;
+    window.onload = function() {
+        let btnNew = document.getElementsByClassName("btnNew")[0];
+        let frmWindow = document.getElementsByClassName("formWindow")[0];
+        let frmButtonX = document.getElementsByClassName("btn")[0];
+        let frmButtonOK = document.getElementsByClassName("btn")[1];
+        globalVar = new ButtonCons(btnNew,frmWindow,frmButtonX,frmButtonOK);
+        globalVar.hide();
+        globalVar.init();
+    };
+</script>
 </body>
 </html>

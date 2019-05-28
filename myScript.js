@@ -1,12 +1,31 @@
+                        
+                        /* COSTRUTTORE BOTTONE */
 
-//if (x===undefined)
-//    x = "nessun contatto";
-  //else
-    //x = "ciao";
+/**
+ * @param {HTMLEment} btnNew        //<div class="btnNew"></div>
+ * @param {HTMLEment} frmWindow     //<div class="formWindow"></div
+ * @param {HTMLEment} frmButtonX
+ * @param {HTMLEment} frmButtonOK
+ */
 
-function addFunction (){
-    var x;
-    x.name = document.getElementById("nameContact").value;
-    document.getElementById("demo").innerHTML = x.name;
+ function ButtonCons(btnNew,frmWindow,frmButtonX,frmButtonOK) {
+     this.pBtnNew = btnNew;
+     this.pFrmWindow = frmWindow;
+     this.pButtonX = frmButtonX;
+     this.pButtonOK = frmButtonOK;
+ };
+
+ButtonCons.prototype.init = function init() {
+    this.pButtonX.addEventListener ('click', () => {this.hide()});
+    this.pButtonOK.addEventListener ('click', () => {this.hide()});
+    this.pBtnNew.addEventListener ('click', () => {this.visible()});
+};
+
+ButtonCons.prototype.visible = function visible() {
+    this.pFrmWindow.style.visibility = "visible";
+};
+
+ButtonCons.prototype.hide = function hide() {
+    this.pFrmWindow.style.visibility = "hidden";
 }
 

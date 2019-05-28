@@ -1,43 +1,135 @@
 * {
     box-sizing: border-box;
-  }
+}
 
 body {
-    background-color: #D4F2F2;
+    margin: 0;
+}
+
+.formWindow {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+form {
+    background-color: white;
+    border-radius: 10px;
+    width: 250px;
+    padding: 30px;
+}
+
+label {
+    display: block;
+    text-align: center;
+}
+
+input {
+    margin-top: 3px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.btnPanel {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.btn {
+    width: 45px;
+    background-color: white;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    right: 10px;
+}
+
+.btn:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .nameApp {
+    border: 1px solid black;
     width: 100%;
-    height: 200px;
-    background-color: #0F3E8A;
-    color: #D4F2F2;
-    text-align: center;
-    font-size: 50px;
-    padding: 35px;
-    border: 20px solid #0F3E8A;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 55px;
     font-weight: bolder;
 }
 
-.listContact {
-    width: 100%;
-    height: 100px;
-    background-color: beige;
-    display: block;
-}
-.dati {
-    width: 100px;
-    height: auto;
-    background-color: aqua;
-    color: black;
+.windowApp {
+    border: 1px solid black;
 }
 
-.newBox {
+.windowApp::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.ltrNavBar {
+    border: 1px solid black;
+    width: 10%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.ltrLabel {
+    border: 1px solid black;
+    height: 30px;
+    border-bottom-left-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ltrLabel:hover {
+    height: 45px;
+    box-shadow: 0px -3px 5px grey;
+}
+
+.listWindow {
+    width: 90%;
+    float: left;
+    border: 1px solid black;
+}
+
+.listWindow::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.btnNew {
+    font-weight: bolder;
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 50%;
     position: fixed;
-    width: 25%;
-    height: 200px;
-    background-color: #639EA4;
-    padding: 10px;
-    top: 80%;
-    left: 75%;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnNew:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
