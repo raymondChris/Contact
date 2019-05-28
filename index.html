@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="formWindow">
-        <form>
+        <form name="newContactForm">
             <label for="fName">Name</label>
             <input type="text" id="fName" name="firstName">
             <label for="lName">Last Name</label>
@@ -61,11 +61,13 @@
 <script>
     var globalVar;
     window.onload = function() {
+        //let frmContact = 
+        console.log(document.getElementsByName("newContactForm")[0]);
         let btnNew = document.getElementsByClassName("btnNew")[0];
         let frmWindow = document.getElementsByClassName("formWindow")[0];
         let frmButtonX = document.getElementsByClassName("btn")[0];
         let frmButtonOK = document.getElementsByClassName("btn")[1];
-        globalVar = new ButtonCons(btnNew,frmWindow,frmButtonX,frmButtonOK);
+        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK);
         globalVar.hide();
         globalVar.init();
     };
