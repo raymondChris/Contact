@@ -23,9 +23,11 @@ ButtonCons.prototype.init = function init() {
 
 ButtonCons.prototype.visible = function visible() {
     this.pFrmWindow.style.visibility = "visible";
+    document.body.style.overflow = "hidden";
 };
 
 ButtonCons.prototype.hide = function hide() {
     this.pFrmWindow.style.visibility = "hidden";
+    document.body.style.overflow = "scroll";
 }
 
