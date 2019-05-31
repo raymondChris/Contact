@@ -71,7 +71,9 @@
         let frmWindow = document.getElementsByClassName("formWindow")[0];
         let frmButtonX = document.getElementsByClassName("btn")[0];
         let frmButtonOK = document.getElementsByClassName("btn")[1];
-        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact);
+        let fltrButton = document.getElementsByClassName("ltrLabel");
+        let listWindowFltrVar = document.getElementsByClassName("listWindowFilter")
+        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, listWindowFltrVar);
         globalVar.hide();
         globalVar.init();
     };
