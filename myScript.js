@@ -90,8 +90,19 @@ ButtonCons.prototype.clear = function clear() {
 }
 
 ButtonCons.prototype.filter = function filter(label) {             //label è la variabile di appoggio 
-   if (this.pListContact.children.length <= 0)
-        alert("nessuna carta")                                                           //della lettera che attiva al filtro
+    let card;
+    if (this.pListContact.children.length > 0) {
+        card = [...this.pListContact.children];
+        console.log(card);
+        for ( let j=0; j< card.length; j++) {
+            if  (card[j].children[0].innerText.charAt(0)==label) {
+                this.pNewList.appendChild(card[j]);
+            }
+        }
+    }
+    else {
+             alert("nessuna carta")
+    }                                                          //della lettera che attiva al filtro
     // let capLet;                                                 //this.pListContact.children array delle carte
   /* if (listcard == undefined)                                          //del label clickato
         {

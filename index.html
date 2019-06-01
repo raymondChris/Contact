@@ -54,9 +54,7 @@
             <div class="ltrLabel">#</div>
         </div>
         <div class="listWindow">                    <!--Finestra dei contatti-->
-            <div class="listWindowFilter">          <!--Finestra dei filtri-->
-                <div class="filterClose">x</div>
-            </div>
+            <div class="bckButton">BACK</div>
             <div class="contactListWindow"></div>   <!--Finestra dei contatti-->
         </div>      
         <div class="btnNew">+</div>
@@ -72,7 +70,7 @@
         let frmButtonX = document.getElementsByClassName("btn")[0];
         let frmButtonOK = document.getElementsByClassName("btn")[1];
         let fltrButton = document.getElementsByClassName("ltrLabel");
-        let listWindowFltrVar = document.getElementsByClassName("listWindowFilter")
+        let listWindowFltrVar = document.getElementsByClassName("listWindowFilter")[0];
         globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, listWindowFltrVar);
         globalVar.hide();
         globalVar.init();

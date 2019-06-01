@@ -108,16 +108,14 @@ input {
     width: 90%;
     float: left;
     border: 1px solid black;
-    position: relative;
 }
 
-.listWindowFilter {
-    width: 100%;
+.bckButton {
+    margin: 10px;
+    width: 100px;
+    text-align: center;
     border: 1px solid black;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: absolute;
+    padding: 10px;
 }
 
 .contactListWindow {
