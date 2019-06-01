@@ -116,6 +116,7 @@ input {
     text-align: center;
     border: 1px solid black;
     padding: 10px;
+    display: "none";
 }
 
 .contactListWindow {
@@ -139,6 +140,7 @@ input {
     padding: 10px;
     width: 180px;
     border: 1px solid black;
+    display: block;
     box-shadow: 5px 2px 15px rgba(0,0,0,0.19);
 }
 

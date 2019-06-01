@@ -8,17 +8,17 @@
  * @param {HTMLElement} frmButtonOK     //<div class="btn">OK</div>
  * @param {HTMLElement} listContact     //<div class="listWindow"></div>
  * @param {HTMLElement} fltrButton      //<div class="fltrButton"></div>
- * @param {HTMLElement} listWindowFltrVar
+ * @param {HTMLElement} backButtonVar
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, listWindowFltrVar) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
      this.pButtonX = frmButtonX;
      this.pButtonOK = frmButtonOK;
      this.pFltrButton = fltrButton;
-     this.pNewList = listWindowFltrVar;
+     this.pBackButton = backButtonVar;
      this.contact = [];
  };
 
@@ -26,17 +26,30 @@
                                          /* FUNZIONE DOVE INIZIALIZZO I BOTTONI */
 
 ButtonCons.prototype.init = function init() {
+    this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
+                                                        this.allCard()});
     this.pButtonX.addEventListener ('click', () => {this.hide()});
-    this.pButtonOK.addEventListener ('click', () => {   this.newContact(),
-                                                        this.hide(),
+    this.pButtonOK.addEventListener ('click', () => {   this.newContact();
+                                                        this.hide();
                                                         this.clear()});
-    this.pBtnNew.addEventListener ('click', () => { this.visible(),
-                                                    this.clear()});
+    this.pBtnNew.addEventListener ('click', () => { this.visible();
+                                                    this.clear();
+                                                    this.allCard()});
     for(let i = 0; i < this.pFltrButton.length; i++) {
-        this.pFltrButton[i].addEventListener ('click', () => {this.filter(this.pFltrButton[i].innerText)});
+        this.pFltrButton[i].addEventListener ('click', () => { this.allCard();
+                                                               this.filter(this.pFltrButton[i].innerText)});
         }
     
 };
+
+ButtonCons.prototype.hideBackButton = function hideBackButton() {
+    this.pBackButton.style.display = "hidden";
+}
+
+ButtonCons.prototype.showBackButton = function showBackButton() {
+    this.pBackButton.style.display = "block";
+}
+
 
                                         /* FUNZIONE PER RENDERE VISIBILE IL FORM */
 
@@ -92,17 +105,25 @@ ButtonCons.prototype.clear = function clear() {
 ButtonCons.prototype.filter = function filter(label) {             //label è la variabile di appoggio 
     let card;
     if (this.pListContact.children.length > 0) {
-        card = [...this.pListContact.children];
-        console.log(card);
+        card = this.pListContact.children;
         for ( let j=0; j< card.length; j++) {
-            if  (card[j].children[0].innerText.charAt(0)==label) {
-                this.pNewList.appendChild(card[j]);
+            if  (card[j].children[0].innerText.charAt(0)!=label) {
+                card[j].style.display = "none";
             }
         }
     }
     else {
              alert("nessuna carta")
-    }                                                          //della lettera che attiva al filtro
+    }
+}
+
+ButtonCons.prototype.allCard = function allCard () {
+    let card = this.pListContact.children;
+    for ( let j=0; j< card.length; j++) {
+        card[j].style.display = "block";
+    }
+}
+//della lettera che attiva al filtro
     // let capLet;                                                 //this.pListContact.children array delle carte
   /* if (listcard == undefined)                                          //del label clickato
         {
@@ -117,7 +138,6 @@ ButtonCons.prototype.filter = function filter(label) {             //label è la
                 //}
         
             //}                     
-}
 // Per arrivare al nome di ogni carta
 //document.getElementsByClassName("card")[i].children[i].innerText
 
