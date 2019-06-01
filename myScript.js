@@ -32,6 +32,9 @@ ButtonCons.prototype.init = function init() {
                                                         this.clear()});
     this.pBtnNew.addEventListener ('click', () => { this.visible(),
                                                     this.clear()});
+    for(let i = 0; i < this.pFltrButton.length; i++) {
+        this.pFltrButton[i].addEventListener ('click', () => {this.filter(this.pFltrButton[i].innerText)});
+        }
     
 };
 
@@ -68,10 +71,6 @@ ButtonCons.prototype.newContact = function newContact() {
                      "Last Name: " + this.createData(contact.Lastname).outerHTML + '<br/>' +    // di Name dell'oggeto contact a createData()
                      "Phone Number: " + this.createData(contact.Phone).outerHTML;
     this.pListContact.appendChild(card);
-    for(let i = 0; i < this.pFltrButton.length; i++)
-        {
-        this.pFltrButton[i].addEventListener ('click', () => {this.filter(card,i)});
-        }
 };
 
                                     /* FUNZIONE PER METTERE I VALORI IN UN DIV PER ALLINEARLI A DESTRA */
@@ -90,22 +89,23 @@ ButtonCons.prototype.clear = function clear() {
     x["phoneNumber"].value = "";
 }
 
-ButtonCons.prototype.filter = function filter(listCard,i) {             //list card array delle carte
-    let fltrVar = this.pFltrButton[i].innerHTML;                        //inizializo la variabile fltr con la lettera 
-    let capLet;
+ButtonCons.prototype.filter = function filter(label) {             //label è la variabile di appoggio 
+   if (this.pListContact.children.length <= 0)
+        alert("nessuna carta")                                                           //della lettera che attiva al filtro
+    // let capLet;                                                 //this.pListContact.children array delle carte
   /* if (listcard == undefined)                                          //del label clickato
         {
             alert("Contact list is empty");
         }
         else {*/
-                for (let j = 0; j < listCard.length; j++) {
-                    capLet = listCard[j].children[0].innerText.charAt(0);
-                    if (capLet == fltrVar) {
-                        this.pNewList.appendChild(listCard[j]);
-                    }
+     //           for (let j = 0; j < listCard.length; j++) {
+       //             capLet = listCard[j].children[0].innerText.charAt(0);
+         //           if (capLet == fltrVar) {
+           //             this.pNewList.appendChild(listCard[j]);
+             //       }
                 //}
         
-            }                     
+            //}                     
 }
 // Per arrivare al nome di ogni carta
 //document.getElementsByClassName("card")[i].children[i].innerText
