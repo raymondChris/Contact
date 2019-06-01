@@ -36,14 +36,15 @@ ButtonCons.prototype.init = function init() {
                                                     this.clear();
                                                     this.allCard()});
     for(let i = 0; i < this.pFltrButton.length; i++) {
-        this.pFltrButton[i].addEventListener ('click', () => { this.allCard();
-                                                               this.filter(this.pFltrButton[i].innerText)});
+        this.pFltrButton[i].addEventListener ('click', () => {  this.allCard();
+                                                                this.filter(this.pFltrButton[i].innerText)
+                                                                this.showBackButton()});
         }
     
 };
 
 ButtonCons.prototype.hideBackButton = function hideBackButton() {
-    this.pBackButton.style.display = "hidden";
+    this.pBackButton.style.display = "none";
 }
 
 ButtonCons.prototype.showBackButton = function showBackButton() {
@@ -74,6 +75,7 @@ ButtonCons.prototype.newContact = function newContact() {
     let name = x["firstName"].value;
     let lastname = x["lastName"].value;
     let phnumber = x["phoneNumber"].value;
+    if (name)
     let card = document.createElement("div");
     let contact = { Name: name,
                     Lastname: lastname,
