@@ -72,6 +72,26 @@ input {
     font-weight: bolder;
 }
 
+.frmSearch {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+}
+
+.iconSearch {
+    border: 1px solid black;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=search] {
+    border: 1px solid black;
+    width: 100px;
+}
+
 .windowApp {
     border: 1px solid black;
 }
