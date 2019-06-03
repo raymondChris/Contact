@@ -64,6 +64,7 @@
 <script>
     var globalVar;
     window.onload = function() {
+        let dataNumber = document.forms['newContactForm']['pNumber'];
         let listContact = document.getElementsByClassName("contactListWindow")[0];
         let btnNew = document.getElementsByClassName("btnNew")[0];
         let frmWindow = document.getElementsByClassName("formWindow")[0];
@@ -71,7 +72,7 @@
         let frmButtonOK = document.getElementsByClassName("btn")[1];
         let fltrButton = document.getElementsByClassName("ltrLabel");
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
-        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar);
+        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber);
         globalVar.hide();
         globalVar.init();
     };

@@ -9,9 +9,10 @@
  * @param {HTMLElement} listContact     //<div class="listWindow"></div>
  * @param {HTMLElement} fltrButton      //<div class="fltrButton"></div>
  * @param {HTMLElement} backButtonVar
+ * @param {HTMLElement} dataNumber
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -19,6 +20,7 @@
      this.pButtonOK = frmButtonOK;
      this.pFltrButton = fltrButton;
      this.pBackButton = backButtonVar;
+     this.pDataNumber = dataNumber;
      this.contact = [];
  };
 
@@ -37,9 +39,10 @@ ButtonCons.prototype.init = function init() {
                                                     this.allCard()});
     for(let i = 0; i < this.pFltrButton.length; i++) {
         this.pFltrButton[i].addEventListener ('click', () => {  this.allCard();
-                                                                this.filter(this.pFltrButton[i].innerText)
+                                                                this.filter(this.pFltrButton[i].innerText);
                                                                 this.showBackButton()});
         }
+    this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
     
 };
 
@@ -75,7 +78,6 @@ ButtonCons.prototype.newContact = function newContact() {
     let name = x["firstName"].value;
     let lastname = x["lastName"].value;
     let phnumber = x["phoneNumber"].value;
-    if (name)
     let card = document.createElement("div");
     let contact = { Name: name,
                     Lastname: lastname,
@@ -124,6 +126,23 @@ ButtonCons.prototype.allCard = function allCard () {
     for ( let j=0; j< card.length; j++) {
         card[j].style.display = "block";
     }
+}
+
+
+                                                        /* METODO DI CONTROLLO NUMERO DI TELEFONO NEL FORM */
+
+ButtonCons.prototype.checkNumber = function checkNumber (e) {
+    let key = e.keyCode;
+    console.log(e.keyCode);
+    if (key < 48 || key > 57) {
+        console.log(this.pDataNumber);
+        x = this.pDataNumber.value.slice(0,this.pDataNumber.value.length-1);
+        this.pDataNumber.value = x;
+    }
+    else {
+        return;
+    }
+
 }
 //della lettera che attiva al filtro
     // let capLet;                                                 //this.pListContact.children array delle carte
