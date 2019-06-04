@@ -13,9 +13,11 @@
  * @param {HTMLElement} btnSearch
  * @param {HTMLElement} windowName
  * @param {HTMLElement} inputSearch
+ * @param {HTMLElement} containerApp
+ * @param {HTMLElement} containerName
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, containerApp, containerName) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -27,6 +29,8 @@
      this.pBtnSearch = btnSearch;
      this.pWindowName = windowName
      this.pInputSearch = inputSearch;
+     this.pCntnrApp = containerApp;
+     this.pCntnrName = containerName; 
      this.contact = [];
  };
 
@@ -49,10 +53,10 @@ ButtonCons.prototype.init = function init() {
                                                                 this.showBackButton()});
         }
     this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
-    this.pBtnSearch.addEventListener ('click', () => {  this.animSearchWidth();
-                                                        this.animSearchMargin()});
-    this.pWindowName.addEventListener ('click', () => { this.animSearchWidthHide();
-                                                        this.animSearchMargin ()})
+    this.pBtnSearch.addEventListener ('click', () => {  this.animSearchWidth()});
+    this.pWindowName.addEventListener ('click', () => { this.animSearchWidthHide()});
+    this.pCntnrApp.addEventListener ('click', () => {this.animSearchWidthHide()});
+    this.pCntnrName.addEventListener ('click', () => {this.animSearchWidthHide()});
     
 };
 
@@ -167,7 +171,7 @@ ButtonCons.prototype.animSearchWidth = function animSearchWidth () {
     let frmW = 0;
     let anim = setInterval(long, 3);
     function long() {
-        if (frmW == 180) {
+        if (frmW == 160) {
             clearInterval(anim);
         } else {
             frmW++;
@@ -179,7 +183,7 @@ ButtonCons.prototype.animSearchWidth = function animSearchWidth () {
 
 
 ButtonCons.prototype.animSearchWidthHide = function animSearchWidthHide() {
-    let frmW = 180;
+    let frmW = 160;
     let x = this.pInputSearch.style.width;
     if (x==="" || x=="0px") {
         return;

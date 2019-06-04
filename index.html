@@ -22,10 +22,12 @@
             </div>
         </form> 
     </div>
+    <div class="containerName">
     <div class="nameApp">CONTACS</div>
     <div class="frmSearch">
         <div class="iconSearch">S</div>
         <input type="search" id="search" name="searchInput">
+    </div>
     </div>
     <div class="windowApp">
         <div class="ltrNavBar">
@@ -68,6 +70,8 @@
 <script>
     var globalVar;
     window.onload = function() {
+        let containerName = document.getElementsByClassName('containerName')[0];
+        let containerApp = document.getElementsByClassName('windowApp')[0];
         let inputSearch = document.getElementById('search');
         let windowName = document.getElementsByClassName("nameApp")[0];
         let btnSearch = document.getElementsByClassName("iconSearch")[0];
@@ -79,7 +83,7 @@
         let frmButtonOK = document.getElementsByClassName("btn")[1];
         let fltrButton = document.getElementsByClassName("ltrLabel");
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
-        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch);
+        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, containerApp, containerName);
         globalVar.hide();
         globalVar.init();
     };

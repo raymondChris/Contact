@@ -60,6 +60,12 @@ input {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+.containerName {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .nameApp {
     border: 1px solid black;
     width: 100%;
@@ -73,10 +79,11 @@ input {
 }
 
 .frmSearch {
-    border: 1px solid black;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: auto;
 }
 
 .iconSearch {
@@ -94,6 +101,7 @@ input[type=search] {
     width: 0px;
     position: relative;
     left: 10px;
+    text-align: right;
 }
 
 .windowApp {
