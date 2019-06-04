@@ -70,7 +70,6 @@
 <script>
     var globalVar;
     window.onload = function() {
-        let containerName = document.getElementsByClassName('containerName')[0];
         let containerApp = document.getElementsByClassName('windowApp')[0];
         let inputSearch = document.getElementById('search');
         let windowName = document.getElementsByClassName("nameApp")[0];
@@ -83,7 +82,7 @@
         let frmButtonOK = document.getElementsByClassName("btn")[1];
         let fltrButton = document.getElementsByClassName("ltrLabel");
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
-        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, containerApp, containerName);
+        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, containerApp);
         globalVar.hide();
         globalVar.init();
     };

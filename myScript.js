@@ -14,10 +14,9 @@
  * @param {HTMLElement} windowName
  * @param {HTMLElement} inputSearch
  * @param {HTMLElement} containerApp
- * @param {HTMLElement} containerName
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, containerApp, containerName) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, containerApp) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -30,7 +29,6 @@
      this.pWindowName = windowName
      this.pInputSearch = inputSearch;
      this.pCntnrApp = containerApp;
-     this.pCntnrName = containerName; 
      this.contact = [];
  };
 
@@ -46,6 +44,7 @@ ButtonCons.prototype.init = function init() {
                                                         this.clear()});
     this.pBtnNew.addEventListener ('click', () => { this.visible();
                                                     this.clear();
+                                                    this.hideBackButton();
                                                     this.allCard()});
     for(let i = 0; i < this.pFltrButton.length; i++) {
         this.pFltrButton[i].addEventListener ('click', () => {  this.allCard();
@@ -53,13 +52,8 @@ ButtonCons.prototype.init = function init() {
                                                                 this.showBackButton()});
         }
     this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
-    this.pBtnSearch.addEventListener ('click', () => {  this.animSearchWidth()});
+    window.addEventListener ('click', (e) => {  this.animSearchWidth(e)});
     this.pInputSearch.addEventListener ('input', () => {this.filterSearch()})
-
-
-    this.pWindowName.addEventListener ('click', () => { this.animSearchWidthHide()});
-    this.pCntnrApp.addEventListener ('click', () => {this.animSearchWidthHide()});
-    //this.pCntnrName.addEventListener ('click', () => {this.animSearchWidthHide()});
     
 };
 
@@ -95,6 +89,9 @@ ButtonCons.prototype.newContact = function newContact() {
     let name = x["firstName"].value;
     let lastname = x["lastName"].value;
     let phnumber = x["phoneNumber"].value;
+    if (name=="" && lastname=="" && phnumber=="") {
+        return;
+    } else {
     let card = document.createElement("div");
     let contact = { Name: name,
                     Lastname: lastname,
@@ -105,6 +102,7 @@ ButtonCons.prototype.newContact = function newContact() {
                      "Last Name: " + this.createData(contact.Lastname).outerHTML + '<br/>' +    // di Name dell'oggeto contact a createData()
                      "Phone Number: " + this.createData(contact.Phone).outerHTML + '<br/>' + this.addEditCancelbutton().outerHTML;
     this.pListContact.appendChild(card);
+    }
 };
 
 
@@ -190,45 +188,47 @@ ButtonCons.prototype.checkNumber = function checkNumber (e) {
 
                                         /* FUNZIONI DI ANIMAZIONE DELL'INPUT DI RICERCA */
 
-ButtonCons.prototype.animSearchWidth = function animSearchWidth () {
-    let frmW = 0;
-    let x = this.pInputSearch.style.width;
-    if (x=="160px") {
-        return;
-        } else {
-            let anim = setInterval(long, 3);
-            function long() {
-            if (frmW == 160) {
-                clearInterval(anim);
+ButtonCons.prototype.animSearchWidth = function animSearchWidth (e) {
+    if  (this.pBtnSearch.contains(e.target) || this.pInputSearch.contains(e.target)) {
+        let frmW = 0;
+        let x = this.pInputSearch.style.width;
+        if (x=="160px") {
+            return;
             } else {
-                frmW++;
-                document.getElementById("search").style.width = frmW + "px";
+                let anim = setInterval(long, 3);
+                function long() {
+                
+                if (frmW == 160) {
+                    clearInterval(anim);
+                } else {
+                    frmW++;
+                    document.getElementById("search").style.width = frmW + "px";
+                }
             }
+            this.pInputSearch.style.border = "1px solid black";
         }
-        this.pInputSearch.style.border = "1px solid black";
+    } else {
+        let frmW = 160;
+        let x = this.pInputSearch.style.width;
+        if (x==="" || x=="0px") {
+            return;
+            } else {
+                let anim = setInterval(short, 3);
+                function short() {
+                
+                if (frmW == 0) {
+                    clearInterval(anim);
+                } else {
+                    frmW--;
+                    document.getElementById("search").style.width = frmW + "px";
+                }
+            }
+            setTimeout(() => {this.pInputSearch.style.border = "none";}, 700);
+
+        }
     }
 }
 
-
-ButtonCons.prototype.animSearchWidthHide = function animSearchWidthHide() {
-    let frmW = 160;
-    let x = this.pInputSearch.style.width;
-    if (x==="" || x=="0px") {
-        return;
-        } else {
-            let anim = setInterval(long, 3);
-            function long() {
-            if (frmW == 0) {
-                clearInterval(anim);
-            } else {
-                frmW--;
-                document.getElementById("search").style.width = frmW + "px";
-            }
-        }
-        setTimeout(() => {this.pInputSearch.style.border = "none";}, 700);
-        
-    }
-}
 
 
                                         /* METODO DI FILTRO PER LA FUNZIONE SEARCH */
