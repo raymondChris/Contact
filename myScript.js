@@ -103,11 +103,33 @@ ButtonCons.prototype.newContact = function newContact() {
     card.classList.add("card");
     card.innerHTML = "Name: " + this.createData(contact.Name).outerHTML + '<br/>' +             //this.createData(contact.Name) passa il valore
                      "Last Name: " + this.createData(contact.Lastname).outerHTML + '<br/>' +    // di Name dell'oggeto contact a createData()
-                     "Phone Number: " + this.createData(contact.Phone).outerHTML;
+                     "Phone Number: " + this.createData(contact.Phone).outerHTML + '<br/>' + this.addEditCancelbutton().outerHTML;
     this.pListContact.appendChild(card);
 };
 
-                                    /* FUNZIONE PER METTERE I VALORI IN UN DIV PER ALLINEARLI A DESTRA */
+
+ButtonCons.prototype.addEditCancelbutton = function addEditCancelbutton() {
+    let buttons = document.createElement('div');
+    buttons.classList.add("cardButtons");
+    buttons.innerHTML = this.createEdit().outerHTML + this.createCancel().outerHTML;
+    return buttons;
+}
+
+ButtonCons.prototype.createEdit = function createEdit() {
+    let edit = document.createElement('div');
+    edit.classList.add("editButton");
+    edit.innerHTML = "E";
+    return edit;
+}
+
+ButtonCons.prototype.createCancel = function createCancel() {
+    let cancel = document.createElement('div');
+    cancel.classList.add("cancelButton");
+    cancel.innerHTML = "X";
+    return cancel;
+}
+
+                                        /* FUNZIONE PER METTERE I VALORI IN UN DIV PER ALLINEARLI A DESTRA */
 
 ButtonCons.prototype.createData = function createData(valore) {        //Questa funzione prende il valore di Name
     let data = document.createElement('div');                           // e lo associa a valore
@@ -170,16 +192,21 @@ ButtonCons.prototype.checkNumber = function checkNumber (e) {
 
 ButtonCons.prototype.animSearchWidth = function animSearchWidth () {
     let frmW = 0;
-    let anim = setInterval(long, 3);
-    function long() {
-        if (frmW == 160) {
-            clearInterval(anim);
+    let x = this.pInputSearch.style.width;
+    if (x=="160px") {
+        return;
         } else {
-            frmW++;
-            document.getElementById("search").style.width = frmW + "px";
+            let anim = setInterval(long, 3);
+            function long() {
+            if (frmW == 160) {
+                clearInterval(anim);
+            } else {
+                frmW++;
+                document.getElementById("search").style.width = frmW + "px";
+            }
         }
+        this.pInputSearch.style.border = "1px solid black";
     }
-    this.pInputSearch.style.border = "1px solid black";
 }
 
 
@@ -189,8 +216,8 @@ ButtonCons.prototype.animSearchWidthHide = function animSearchWidthHide() {
     if (x==="" || x=="0px") {
         return;
         } else {
-        let anim = setInterval(long, 3);
-        function long() {
+            let anim = setInterval(long, 3);
+            function long() {
             if (frmW == 0) {
                 clearInterval(anim);
             } else {

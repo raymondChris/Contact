@@ -176,6 +176,25 @@ input[type=search] {
     box-shadow: 5px 2px 15px rgba(0,0,0,0.19);
 }
 
+.cardButtons {
+    width: 100%;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+    margin-top: 5px;
+}
+
+.editButton, .cancelButton {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .data {
     text-transform: lowercase;
     text-align: end;
@@ -215,6 +234,6 @@ input[type=search] {
     align-items: center;
 }
 
-.btnNew:hover {
+.editButton:hover, .cancelButton:hover, .btnNew:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
