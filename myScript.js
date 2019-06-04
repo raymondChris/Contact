@@ -54,9 +54,12 @@ ButtonCons.prototype.init = function init() {
         }
     this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
     this.pBtnSearch.addEventListener ('click', () => {  this.animSearchWidth()});
+    this.pInputSearch.addEventListener ('input', () => {this.filterSearch()})
+
+
     this.pWindowName.addEventListener ('click', () => { this.animSearchWidthHide()});
     this.pCntnrApp.addEventListener ('click', () => {this.animSearchWidthHide()});
-    this.pCntnrName.addEventListener ('click', () => {this.animSearchWidthHide()});
+    //this.pCntnrName.addEventListener ('click', () => {this.animSearchWidthHide()});
     
 };
 
@@ -152,9 +155,7 @@ ButtonCons.prototype.allCard = function allCard () {
 
 ButtonCons.prototype.checkNumber = function checkNumber (e) {
     let key = e.keyCode;
-    console.log(e.keyCode);
     if (key < 48 || key > 57) {
-        console.log(this.pDataNumber);
         x = this.pDataNumber.value.slice(0,this.pDataNumber.value.length-1);
         this.pDataNumber.value = x;
     }
@@ -199,5 +200,23 @@ ButtonCons.prototype.animSearchWidthHide = function animSearchWidthHide() {
         }
         setTimeout(() => {this.pInputSearch.style.border = "none";}, 700);
         
+    }
+}
+
+
+                                        /* METODO DI FILTRO PER LA FUNZIONE SEARCH */
+
+ButtonCons.prototype.filterSearch = function filterSearch() {
+    let key = this.pInputSearch.value;
+    let card = this.pListContact.children;
+    let x;
+    for (let i=0; i < card.length; i++) {
+        x = card[i].children[0].innerHTML.slice(0,key.length);
+        if (x != key) {
+            card[i].style.display = "none";
+        }
+        else {
+            card[i].style.display = "block"
+        }
     }
 }
