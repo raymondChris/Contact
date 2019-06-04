@@ -76,6 +76,7 @@ input {
     border: 1px solid black;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .iconSearch {
@@ -88,8 +89,11 @@ input {
 }
 
 input[type=search] {
-    border: 1px solid black;
-    width: 100px;
+    border: none;
+    margin: 15px 0px;
+    width: 0px;
+    position: relative;
+    left: 10px;
 }
 
 .windowApp {

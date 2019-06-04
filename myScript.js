@@ -10,9 +10,12 @@
  * @param {HTMLElement} fltrButton      //<div class="fltrButton"></div>
  * @param {HTMLElement} backButtonVar
  * @param {HTMLElement} dataNumber
+ * @param {HTMLElement} btnSearch
+ * @param {HTMLElement} windowName
+ * @param {HTMLElement} inputSearch
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -21,6 +24,9 @@
      this.pFltrButton = fltrButton;
      this.pBackButton = backButtonVar;
      this.pDataNumber = dataNumber;
+     this.pBtnSearch = btnSearch;
+     this.pWindowName = windowName
+     this.pInputSearch = inputSearch;
      this.contact = [];
  };
 
@@ -43,6 +49,10 @@ ButtonCons.prototype.init = function init() {
                                                                 this.showBackButton()});
         }
     this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
+    this.pBtnSearch.addEventListener ('click', () => {  this.animSearchWidth();
+                                                        this.animSearchMargin()});
+    this.pWindowName.addEventListener ('click', () => { this.animSearchWidthHide();
+                                                        this.animSearchMargin ()})
     
 };
 
@@ -106,6 +116,9 @@ ButtonCons.prototype.clear = function clear() {
     x["phoneNumber"].value = "";
 }
 
+
+                                        /* FUNZIONE CHE FILTRA I CONTATTI PER L'INIZIALE DEL NOME */
+
 ButtonCons.prototype.filter = function filter(label) {             //label è la variabile di appoggio 
     let card;
     if (this.pListContact.children.length > 0) {
@@ -121,6 +134,8 @@ ButtonCons.prototype.filter = function filter(label) {             //label è la
     }
 }
 
+                                            /* FUNZIONE CHE MI FA VEDERE LA LISTA INTERA */
+
 ButtonCons.prototype.allCard = function allCard () {
     let card = this.pListContact.children;
     for ( let j=0; j< card.length; j++) {
@@ -129,7 +144,7 @@ ButtonCons.prototype.allCard = function allCard () {
 }
 
 
-                                                        /* METODO DI CONTROLLO NUMERO DI TELEFONO NEL FORM */
+                                        /* METODO DI CONTROLLO NUMERO DI TELEFONO NEL FORM */
 
 ButtonCons.prototype.checkNumber = function checkNumber (e) {
     let key = e.keyCode;
@@ -144,22 +159,41 @@ ButtonCons.prototype.checkNumber = function checkNumber (e) {
     }
 
 }
-//della lettera che attiva al filtro
-    // let capLet;                                                 //this.pListContact.children array delle carte
-  /* if (listcard == undefined)                                          //del label clickato
-        {
-            alert("Contact list is empty");
-        }
-        else {*/
-     //           for (let j = 0; j < listCard.length; j++) {
-       //             capLet = listCard[j].children[0].innerText.charAt(0);
-         //           if (capLet == fltrVar) {
-           //             this.pNewList.appendChild(listCard[j]);
-             //       }
-                //}
-        
-            //}                     
-// Per arrivare al nome di ogni carta
-//document.getElementsByClassName("card")[i].children[i].innerText
 
-//document.getElementsByClassName("card")[0] se è undefined alert("lista vuota")
+
+                                        /* FUNZIONI DI ANIMAZIONE DELL'INPUT DI RICERCA */
+
+ButtonCons.prototype.animSearchWidth = function animSearchWidth () {
+    let frmW = 0;
+    let anim = setInterval(long, 3);
+    function long() {
+        if (frmW == 180) {
+            clearInterval(anim);
+        } else {
+            frmW++;
+            document.getElementById("search").style.width = frmW + "px";
+        }
+    }
+    this.pInputSearch.style.border = "1px solid black";
+}
+
+
+ButtonCons.prototype.animSearchWidthHide = function animSearchWidthHide() {
+    let frmW = 180;
+    let x = this.pInputSearch.style.width;
+    if (x==="" || x=="0px") {
+        return;
+        } else {
+        let anim = setInterval(long, 3);
+        function long() {
+            if (frmW == 0) {
+                clearInterval(anim);
+            } else {
+                frmW--;
+                document.getElementById("search").style.width = frmW + "px";
+            }
+        }
+        setTimeout(() => {this.pInputSearch.style.border = "none";}, 700);
+        
+    }
+}
