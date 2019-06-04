@@ -13,10 +13,9 @@
  * @param {HTMLElement} btnSearch
  * @param {HTMLElement} windowName
  * @param {HTMLElement} inputSearch
- * @param {HTMLElement} containerApp
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, containerApp) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -28,7 +27,6 @@
      this.pBtnSearch = btnSearch;
      this.pWindowName = windowName
      this.pInputSearch = inputSearch;
-     this.pCntnrApp = containerApp;
      this.contact = [];
  };
 
@@ -36,12 +34,16 @@
                                          /* FUNZIONE DOVE INIZIALIZZO I BOTTONI */
 
 ButtonCons.prototype.init = function init() {
+    var x;
     this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
                                                         this.allCard()});
-    this.pButtonX.addEventListener ('click', () => {this.hide()});
-    this.pButtonOK.addEventListener ('click', () => {   this.newContact();
+    this.pButtonX.addEventListener ('click', () => {    this.hide()});
+    this.pButtonOK.addEventListener ('click', () => { x = this.newContact();
                                                         this.hide();
-                                                        this.clear()});
+                                                        this.clear();
+                                                        console.log(x.children[1]);
+                                                        x.children[0].addEventListener ('click', () => {this.visible()})
+                                                        x.children[1].addEventListener ('click', () => {this.visible()})});
     this.pBtnNew.addEventListener ('click', () => { this.visible();
                                                     this.clear();
                                                     this.hideBackButton();
@@ -53,8 +55,7 @@ ButtonCons.prototype.init = function init() {
         }
     this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
     window.addEventListener ('click', (e) => {  this.animSearchWidth(e)});
-    this.pInputSearch.addEventListener ('input', () => {this.filterSearch()})
-    
+    this.pInputSearch.addEventListener ('input', () => {this.filterSearch()});
 };
 
 ButtonCons.prototype.hideBackButton = function hideBackButton() {
@@ -86,6 +87,7 @@ ButtonCons.prototype.hide = function hide() {
 
 ButtonCons.prototype.newContact = function newContact() {
     let x = document.forms["newContactForm"];
+    let y;
     let name = x["firstName"].value;
     let lastname = x["lastName"].value;
     let phnumber = x["phoneNumber"].value;
@@ -98,10 +100,12 @@ ButtonCons.prototype.newContact = function newContact() {
                     Phone: phnumber};
     this.contact.push(contact);    
     card.classList.add("card");
+    y = this.addEditCancelbutton();
     card.innerHTML = "Name: " + this.createData(contact.Name).outerHTML + '<br/>' +             //this.createData(contact.Name) passa il valore
                      "Last Name: " + this.createData(contact.Lastname).outerHTML + '<br/>' +    // di Name dell'oggeto contact a createData()
-                     "Phone Number: " + this.createData(contact.Phone).outerHTML + '<br/>' + this.addEditCancelbutton().outerHTML;
+                     "Phone Number: " + this.createData(contact.Phone).outerHTML + '<br/>' + y.outerHTML;
     this.pListContact.appendChild(card);
+    return y;
     }
 };
 
