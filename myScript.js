@@ -13,9 +13,11 @@
  * @param {HTMLElement} btnSearch
  * @param {HTMLElement} windowName
  * @param {HTMLElement} inputSearch
+ * @param {HTMLElement} colorPalette
+ * @param {HTMLElement} btnColor
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -27,6 +29,8 @@
      this.pBtnSearch = btnSearch;
      this.pWindowName = windowName;
      this.pInputSearch = inputSearch;
+     this.pClrPalette = colorPalette;
+     this.pBtnColor = btnColor;
      this.contact = [];
  };
 
@@ -36,28 +40,37 @@
 ButtonCons.prototype.init = function init() {
     this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
                                                         this.allCard()});
+
     this.pButtonX.addEventListener ('click', () => {this.hide()});
+
     this.pButtonOK.addEventListener ('click', () => {   this.newContact();
                                                         this.hide();
                                                         this.clear()});
+
     this.pBtnNew.addEventListener ('click', () => { this.visible();
                                                     this.clear();
                                                     this.hideBackButton();
                                                     this.allCard()});
+
     for(let i = 0; i < this.pFltrButton.length; i++) {
         this.pFltrButton[i].addEventListener ('click', () => {  this.allCard();
                                                                 this.filter(this.pFltrButton[i].innerText);
-                                                                this.showBackButton()});
+                                                                });
         }
+
     this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
-    window.addEventListener ('click', (e) => {  this.animSearchWidth(e)});
-    this.pInputSearch.addEventListener ('input', () => {this.filterSearch()})
-    
+
+    window.addEventListener ('click', (e) => {  this.animSearchWidth(e)
+                                                this.paletteVisible(e)});
+
+    this.pInputSearch.addEventListener ('input', () => {this.filterSearch()});
 };
+
 
 ButtonCons.prototype.hideBackButton = function hideBackButton() {
     this.pBackButton.style.display = "none";
 }
+
 
 ButtonCons.prototype.showBackButton = function showBackButton() {
     this.pBackButton.style.display = "block";
@@ -71,6 +84,16 @@ ButtonCons.prototype.visible = function visible() {
     document.body.style.overflow = "hidden";
 };
 
+
+ButtonCons.prototype.paletteVisible = function paletteVisible(e) {
+    if (this.pBtnColor.contains(e.target)) {
+        this.pClrPalette.style.visibility = "visible";
+        document.body.style.overflow = "hidden";
+    } else {
+        this.pClrPalette.style.visibility = "hidden";
+        document.body.style.overflow = "scroll";
+    }
+};
 
                                         /* FUNZIONE PER RENDERE INVISIBILE IL FORM */
 
@@ -98,7 +121,7 @@ ButtonCons.prototype.newContact = function newContact() {
     this.contact.push(contact);    
     card.classList.add("card");
     let y = this.addEditCancelbutton();
-    y.children[0].addEventListener ('click', () => {this.visible()});
+    y.children[0].onclick = this.visible();
     card.innerHTML = "Name: " + this.createData(contact.Name).outerHTML + '<br/>' +             //this.createData(contact.Name) passa il valore
                      "Last Name: " + this.createData(contact.Lastname).outerHTML + '<br/>' +    // di Name dell'oggeto contact a createData()
                      "Phone Number: " + this.createData(contact.Phone).outerHTML + '<br/>' + y.outerHTML;
@@ -156,10 +179,12 @@ ButtonCons.prototype.filter = function filter(label) {             //label è la
                 card[j].style.display = "none";
             }
         }
+        this.showBackButton();
     }
     else {
-             alert("nessuna carta")
+             alert("nessun contatto")
     }
+    
 }
 
                                             /* FUNZIONE CHE MI FA VEDERE LA LISTA INTERA */
@@ -193,6 +218,7 @@ ButtonCons.prototype.animSearchWidth = function animSearchWidth (e) {
     if  (this.pBtnSearch.contains(e.target) || this.pInputSearch.contains(e.target)) {
         let frmW = 0;
         let x = this.pInputSearch.style.width;
+        this.pInputSearch.style.display = 'block';
         if (x=="160px") {
             return;
             } else {
@@ -224,8 +250,10 @@ ButtonCons.prototype.animSearchWidth = function animSearchWidth (e) {
                     document.getElementById("search").style.width = frmW + "px";
                 }
             }
-            setTimeout(() => {this.pInputSearch.style.border = "none";}, 700);
-
+            setTimeout(() => {  this.pInputSearch.style.border = "none";
+                                this.pInputSearch.style.display = "none";}, 700);
+            this.pInputSearch.value ="";
+            this.allCard();
         }
     }
 }
