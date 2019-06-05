@@ -110,40 +110,55 @@ ButtonCons.prototype.newContact = function newContact() {
     let name = x["firstName"].value;
     let lastname = x["lastName"].value;
     let phnumber = x["phoneNumber"].value;
-    var that = this;
     if (name=="" && lastname=="" && phnumber=="") {
         return;
     } else {
     let card = document.createElement("div");
+    let that = this;
     let contact = { Name: name,
                     Lastname: lastname,
                     Phone: phnumber};
-    this.contact.push(contact);    
+    let title1 = that.createTitle('Name');
+    let title2 = that.createTitle('Last Name');
+    let title3 = that.createTitle('Phone Number');
+    let data1 = that.createData(contact.Name);
+    let data2 = that.createData(contact.Lastname);
+    let data3 = that.createData(contact.Phone);
+    let panelButtons = that.addEditCancelbutton();
+    let edit = that.createEdit();
+    let cancel = that.createCancel();
+
     card.classList.add("card");
-    
-    let y = this.addEditCancelbutton();
-    card.innerHTML = "Name: " + this.createData(contact.Name).outerHTML + '<br/>' +             //this.createData(contact.Name) passa il valore
-                     "Last Name: " + this.createData(contact.Lastname).outerHTML + '<br/>' +    // di Name dell'oggeto contact a createData()
-                     "Phone Number: " + this.createData(contact.Phone).outerHTML + '<br/>' + y.outerHTML;
+    card.appendChild(title1);
+    card.appendChild(data1);
+    card.appendChild(title2);
+    card.appendChild(data2);
+    card.appendChild(title3);
+    card.appendChild(data3);
+    panelButtons.appendChild(edit);
+    panelButtons.appendChild(cancel);
+    card.appendChild(panelButtons);
+
+    edit.addEventListener('click',() => {that.visible()});
+    console.log(edit);
+    //card.innerHTML = "Name: " + this.createData(contact.Name).outerHTML + '<br/>' +             //this.createData(contact.Name) passa il valore
+    //                 "Last Name: " + this.createData(contact.Lastname).outerHTML + '<br/>' +    // di Name dell'oggeto contact a createData()
+    //                 "Phone Number: " + this.createData(contact.Phone).outerHTML + '<br/>' + y.outerHTML;
     this.pListContact.appendChild(card);
     }
 };
 
 
 ButtonCons.prototype.addEditCancelbutton = function addEditCancelbutton() {
-    var that = this;
     let buttons = document.createElement('div');
     buttons.classList.add("cardButtons");
-    buttons.innerHTML = that.createEdit().outerHTML + that.createCancel().outerHTML;
     return buttons;
 }
 
 ButtonCons.prototype.createEdit = function createEdit() {
-    var that = this;
     let edit = document.createElement('div');
     edit.classList.add("editButton");
     edit.innerHTML = "E";
-    edit.addEventListener('click', () => {document.getElementsByClassName("formWindow")[0].style.visibility = "visible"});
     return edit;
 }
 
@@ -153,6 +168,13 @@ ButtonCons.prototype.createCancel = function createCancel() {
     cancel.innerHTML = "X";
     return cancel;
 }
+
+ButtonCons.prototype.createTitle = function createTitle(valore) {        
+    let title = document.createElement('div');                          
+    title.classList.add("title");                                        
+    title.innerHTML = valore;                                           
+    return title;                                                       
+} 
 
                                         /* FUNZIONE PER METTERE I VALORI IN UN DIV PER ALLINEARLI A DESTRA */
 

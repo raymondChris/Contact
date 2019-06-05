@@ -236,6 +236,7 @@ input[type=search] {
 }
 
 .card {
+    height: 200px;
     background-color: #DFF9FA;
     margin: 15px;
     border-radius: 10px;
