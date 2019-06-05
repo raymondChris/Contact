@@ -107,10 +107,10 @@ ButtonCons.prototype.hide = function hide() {
 
 ButtonCons.prototype.newContact = function newContact() {
     let x = document.forms["newContactForm"];
-    let y;
     let name = x["firstName"].value;
     let lastname = x["lastName"].value;
     let phnumber = x["phoneNumber"].value;
+    var that = this;
     if (name=="" && lastname=="" && phnumber=="") {
         return;
     } else {
@@ -120,8 +120,8 @@ ButtonCons.prototype.newContact = function newContact() {
                     Phone: phnumber};
     this.contact.push(contact);    
     card.classList.add("card");
+    
     let y = this.addEditCancelbutton();
-    y.children[0].onclick = this.visible();
     card.innerHTML = "Name: " + this.createData(contact.Name).outerHTML + '<br/>' +             //this.createData(contact.Name) passa il valore
                      "Last Name: " + this.createData(contact.Lastname).outerHTML + '<br/>' +    // di Name dell'oggeto contact a createData()
                      "Phone Number: " + this.createData(contact.Phone).outerHTML + '<br/>' + y.outerHTML;
@@ -131,16 +131,19 @@ ButtonCons.prototype.newContact = function newContact() {
 
 
 ButtonCons.prototype.addEditCancelbutton = function addEditCancelbutton() {
+    var that = this;
     let buttons = document.createElement('div');
     buttons.classList.add("cardButtons");
-    buttons.innerHTML = this.createEdit().outerHTML + this.createCancel().outerHTML;
+    buttons.innerHTML = that.createEdit().outerHTML + that.createCancel().outerHTML;
     return buttons;
 }
 
 ButtonCons.prototype.createEdit = function createEdit() {
+    var that = this;
     let edit = document.createElement('div');
     edit.classList.add("editButton");
     edit.innerHTML = "E";
+    edit.addEventListener('click', () => {document.getElementsByClassName("formWindow")[0].style.visibility = "visible"});
     return edit;
 }
 

@@ -70,7 +70,9 @@
             <div class="ltrLabel">Z</div>
         </div>
         <div class="listWindow">                    <!--Finestra dei contatti-->
-            <div class="bckButton">BACK</div>
+            <div class="bckButton">
+                    <ion-icon name="ios-undo"></ion-icon>
+            </div>
             <div class="contactListWindow"></div>   <!--Finestra dei contatti-->
         </div>
         <div class="btnColor">
@@ -100,7 +102,7 @@
         let fltrButton = document.getElementsByClassName("ltrLabel");
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
         globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalettte, btnColor);
-        globalVar.hide();
+        
         globalVar.init();
     };
 </script>
