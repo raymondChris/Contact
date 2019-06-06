@@ -38,16 +38,17 @@
                                          /* FUNZIONE DOVE INIZIALIZZO I BOTTONI */
 
 ButtonCons.prototype.init = function init() {
+    let index = 0;
     this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
                                                         this.allCard()});
 
     this.pButtonX.addEventListener ('click', () => {this.hide()});
 
-    this.pButtonOK.addEventListener ('click', () => {   this.newContact();
+    this.pButtonOK.addEventListener ('click', () => {  index = this.newContact(index);
                                                         this.hide();
                                                         this.clear()});
 
-    this.pBtnNew.addEventListener ('click', () => { this.visible();
+    this.pBtnNew.addEventListener ('click', () => {this.visible();
                                                     this.clear();
                                                     this.hideBackButton();
                                                     this.allCard()});
@@ -79,10 +80,32 @@ ButtonCons.prototype.showBackButton = function showBackButton() {
 
                                         /* FUNZIONE PER RENDERE VISIBILE IL FORM */
 
-ButtonCons.prototype.visible = function visible() {
+ButtonCons.prototype.visible = function visible(e) {
+    let x;
+    let frm = document.forms["newContactForm"];
+    let that = this;
     this.pFrmWindow.style.visibility = "visible";
-    document.body.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
+    if (typeof e != 'undefined' ) {
+        console.log(e);
+        x = e.target.parentElement.parentElement;
+        frm["firstName"].value = x.getElementsByClassName("cName")[0].innerHTML;
+        frm["lastName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
+        frm["phoneNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;
+        that.pButtonOK.removeEventListener ('click', newContact);
+        //this.pButtonOK.addEventListener ('click', () => {that.editCard(x,frm), true
+                                                    
+    }
+    return;
 };
+
+
+ButtonCons.prototype.editCard = function editCard(x, frm) {
+    let card = this.pListContact.children;
+    console.log(card);
+    //for ( let j=0; j< card.length; j++) {
+      //  if (x.getElementById("index").innerHTML==)
+}
 
 
 ButtonCons.prototype.paletteVisible = function paletteVisible(e) {
@@ -105,30 +128,32 @@ ButtonCons.prototype.hide = function hide() {
 
                                     /* FUNZIONE PER AGGIUNGERE IL CONTATTO E CREARE LA CARTA */
 
-ButtonCons.prototype.newContact = function newContact() {
+ButtonCons.prototype.newContact = function newContact(index) {
     let x = document.forms["newContactForm"];
     let name = x["firstName"].value;
     let lastname = x["lastName"].value;
     let phnumber = x["phoneNumber"].value;
     if (name=="" && lastname=="" && phnumber=="") {
-        return;
+        return index;
     } else {
     let card = document.createElement("div");
     let that = this;
     let contact = { Name: name,
                     Lastname: lastname,
                     Phone: phnumber};
-    let title1 = that.createTitle('Name');
-    let title2 = that.createTitle('Last Name');
-    let title3 = that.createTitle('Phone Number');
-    let data1 = that.createData(contact.Name);
-    let data2 = that.createData(contact.Lastname);
-    let data3 = that.createData(contact.Phone);
+    let i = that.createData(index,'index');
+    let title1 = that.createTitle('NAME');
+    let title2 = that.createTitle('LAST NAME');
+    let title3 = that.createTitle('PHONE NUMBER');
+    let data1 = that.createData(contact.Name,'cName');
+    let data2 = that.createData(contact.Lastname,'cLastName');
+    let data3 = that.createData(contact.Phone, 'cPhoneNumber');
     let panelButtons = that.addEditCancelbutton();
     let edit = that.createEdit();
     let cancel = that.createCancel();
 
     card.classList.add("card");
+    card.appendChild(i);
     card.appendChild(title1);
     card.appendChild(data1);
     card.appendChild(title2);
@@ -138,13 +163,11 @@ ButtonCons.prototype.newContact = function newContact() {
     panelButtons.appendChild(edit);
     panelButtons.appendChild(cancel);
     card.appendChild(panelButtons);
-
-    edit.addEventListener('click',() => {that.visible()});
-    console.log(edit);
-    //card.innerHTML = "Name: " + this.createData(contact.Name).outerHTML + '<br/>' +             //this.createData(contact.Name) passa il valore
-    //                 "Last Name: " + this.createData(contact.Lastname).outerHTML + '<br/>' +    // di Name dell'oggeto contact a createData()
-    //                 "Phone Number: " + this.createData(contact.Phone).outerHTML + '<br/>' + y.outerHTML;
+    
+    edit.addEventListener('click',(e) => {that.visible(e)});
     this.pListContact.appendChild(card);
+    index += 1;
+    return index;
     }
 };
 
@@ -178,11 +201,11 @@ ButtonCons.prototype.createTitle = function createTitle(valore) {
 
                                         /* FUNZIONE PER METTERE I VALORI IN UN DIV PER ALLINEARLI A DESTRA */
 
-ButtonCons.prototype.createData = function createData(valore) {        //Questa funzione prende il valore di Name
+ButtonCons.prototype.createData = function createData(valore, pClass) {        //Questa funzione prende il valore di Name
     let data = document.createElement('div');                           // e lo associa a valore
-    data.classList.add("data");                                         //Poi crea una varibile data dove crea
+    data.classList.add(pClass);                                         //Poi crea una varibile data dove crea
     data.innerHTML = valore;                                            // <div class="data"></div> e mette dentro
-    return data;                                                        // valore => <div class="data">valore</div>
+    return data;                                                       // valore => <div class="data">valore</div>
 }                                                                       // e con return la restituisce
 
 ButtonCons.prototype.clear = function clear() {
@@ -257,7 +280,7 @@ ButtonCons.prototype.animSearchWidth = function animSearchWidth (e) {
                     document.getElementById("search").style.width = frmW + "px";
                 }
             }
-            this.pInputSearch.style.border = "1px solid black";
+            //this.pInputSearch.style.border = "1px solid #273575";
         }
     } else {
         let frmW = 160;
