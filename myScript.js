@@ -39,19 +39,22 @@
 
 ButtonCons.prototype.init = function init() {
     let index = 0;
+    let z = 0;
     this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
                                                         this.allCard()});
 
     this.pButtonX.addEventListener ('click', () => {this.hide()});
 
-    this.pButtonOK.addEventListener ('click', () => {  index = this.newContact(index);
+    this.pButtonOK.addEventListener ('click', () => {  
+                                                        index = this.newContact(index);
+
                                                         this.hide();
                                                         this.clear()});
 
-    this.pBtnNew.addEventListener ('click', () => { this.visible();
-                                                    this.clear();
-                                                    this.hideBackButton();
-                                                    this.allCard()});
+    this.pBtnNew.addEventListener ('click', () => { z = this.visible();
+                                                        this.clear();
+                                                        this.hideBackButton();
+                                                        this.allCard()});
 
     for(let i = 0; i < this.pFltrButton.length; i++) {
         this.pFltrButton[i].addEventListener ('click', () => {  this.allCard();
@@ -91,8 +94,10 @@ ButtonCons.prototype.visible = function visible(e) {
         frm["firstName"].value = x.getElementsByClassName("cName")[0].innerHTML;
         frm["lastName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
         frm["phoneNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;                                                
+    } else {
+        y += 1;
+        return y;
     }
-    return y;
 };
 
 
