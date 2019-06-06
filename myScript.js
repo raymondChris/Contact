@@ -48,7 +48,7 @@ ButtonCons.prototype.init = function init() {
                                                         this.hide();
                                                         this.clear()});
 
-    this.pBtnNew.addEventListener ('click', () => {this.visible();
+    this.pBtnNew.addEventListener ('click', () => { this.visible();
                                                     this.clear();
                                                     this.hideBackButton();
                                                     this.allCard()});
@@ -83,20 +83,16 @@ ButtonCons.prototype.showBackButton = function showBackButton() {
 ButtonCons.prototype.visible = function visible(e) {
     let x;
     let frm = document.forms["newContactForm"];
-    let that = this;
+    let y = 0;
     this.pFrmWindow.style.visibility = "visible";
         document.body.style.overflow = "hidden";
     if (typeof e != 'undefined' ) {
-        console.log(e);
         x = e.target.parentElement.parentElement;
         frm["firstName"].value = x.getElementsByClassName("cName")[0].innerHTML;
         frm["lastName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
-        frm["phoneNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;
-        that.pButtonOK.removeEventListener ('click', newContact);
-        //this.pButtonOK.addEventListener ('click', () => {that.editCard(x,frm), true
-                                                    
+        frm["phoneNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;                                                
     }
-    return;
+    return y;
 };
 
 
