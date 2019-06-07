@@ -9,6 +9,7 @@
     <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
 </head>
 <body>
+                                        <!--FORM PER NUOVO CONTATTP-->
     <div class="formWindow">
         <form name="newContactForm">
             <label for="fName">Name</label>
@@ -23,6 +24,22 @@
             </div>
         </form> 
     </div>
+                                        <!--FORM PER CAMBIARE CONTATTO-->
+    <div class="editformWindow">
+        <form name="editContactForm">
+            <label for="editfName">Name</label>
+            <input type="text" id="editfName" name="editfirstName">
+            <label for="editlName">Last Name</label>
+            <input type="text" id="editlName" name="editlastName">
+            <label for="editpNumber">Phone Number</label>
+            <input type="text" id="editpNumber" name="editphoneNumber">
+            <div class="editBtnPanel">
+                <div class="editBtn">X</div>
+                <div class="editBtn">OK</div>
+            </div>
+        </form> 
+    </div>
+
     <div class="colorFormWindow">
         <div class="paletteColor">
             <div class="blue"></div>
@@ -31,15 +48,17 @@
             <div class="pink"></div>
         </div>
     </div>
+
     <div class="containerName">
-    <div class="nameApp">CONTACS</div>
-    <div class="frmSearch">
-        <div class="iconSearch">
+        <div class="nameApp">CONTACS</div>
+        <div class="frmSearch">
+            <div class="iconSearch">
                 <ion-icon name="ios-search"></ion-icon>
+            </div>
+            <input type="search" id="search" name="searchInput">
         </div>
-        <input type="search" id="search" name="searchInput">
     </div>
-    </div>
+
     <div class="windowApp">
         <div class="ltrNavBar">
             <div class="ltrLabel">A</div>
@@ -82,12 +101,13 @@
                 <ion-icon name="ios-add-circle-outline"></ion-icon>
         </div>
     </div>
-    </div>
 <script src="./myScript.js"></script>
 <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
 <script>
     var globalVar;
     window.onload = function() {
+        let prova = document.getElementsByClassName('editformWindow')[0];
+        let editFrmWindow = document.forms['editContactForm'];
         let btnColor = document.getElementsByClassName('btnColor')[0];
         let colorPalettte = document.getElementsByClassName('colorFormWindow')[0];
         let inputSearch = document.getElementById('search');
@@ -101,7 +121,7 @@
         let frmButtonOK = document.getElementsByClassName("btn")[1];
         let fltrButton = document.getElementsByClassName("ltrLabel");
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
-        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalettte, btnColor);
+        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalettte, btnColor, editFrmWindow,prova);
         
         globalVar.init();
     };

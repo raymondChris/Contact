@@ -15,9 +15,10 @@
  * @param {HTMLElement} inputSearch
  * @param {HTMLElement} colorPalette
  * @param {HTMLElement} btnColor
+ * @param {HTMLElement} editFrmWindow
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow, prova) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -31,20 +32,23 @@
      this.pInputSearch = inputSearch;
      this.pClrPalette = colorPalette;
      this.pBtnColor = btnColor;
+     this.pEditFrmWindow = editFrmWindow;
      this.contact = [];
+     this.pProva = prova;
  };
-
+ 
 
                                          /* FUNZIONE DOVE INIZIALIZZO I BOTTONI */
 
 ButtonCons.prototype.init = function init() {
     let index = 0;
+    
     this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
                                                         this.allCard()});
 
     this.pButtonX.addEventListener ('click', () => {this.hide()});
 
-    this.pButtonOK.addEventListener ('click', () => {  index = this.newContact(index);
+    this.pButtonOK.addEventListener ('click', () => { index = this.newContact(index);
                                                         this.hide();
                                                         this.clear()});
 
@@ -55,8 +59,7 @@ ButtonCons.prototype.init = function init() {
 
     for(let i = 0; i < this.pFltrButton.length; i++) {
         this.pFltrButton[i].addEventListener ('click', () => {  this.allCard();
-                                                                this.filter(this.pFltrButton[i].innerText);
-                                                                });
+                                                                this.filter(this.pFltrButton[i].innerText)});
         }
 
     this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
@@ -80,25 +83,23 @@ ButtonCons.prototype.showBackButton = function showBackButton() {
 
                                         /* FUNZIONE PER RENDERE VISIBILE IL FORM */
 
-ButtonCons.prototype.visible = function visible(e) {
-    let x;
-    let frm = document.forms["newContactForm"];
-    let y = 0;
+ButtonCons.prototype.visible = function visible() {
     this.pFrmWindow.style.visibility = "visible";
         document.body.style.overflow = "hidden";
-    if (typeof e != 'undefined' ) {
-        x = e.target.parentElement.parentElement;
-        frm["firstName"].value = x.getElementsByClassName("cName")[0].innerHTML;
-        frm["lastName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
-        frm["phoneNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;                                                
-    }
-    return y;
+}
+
+ButtonCons.prototype.visibleEdit = function visibleEdit(e, y) {
+    let x = e.target.parentElement.parentElement;
+    this.pProva.style.visibility = "visible";
+    console.log(y);
+        y["editfirstName"].value = x.getElementsByClassName("cName")[0].innerHTML;
+        y["editlastName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
+        y["editphoneNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;                                                
 };
 
 
 ButtonCons.prototype.editCard = function editCard(x, frm) {
     let card = this.pListContact.children;
-    console.log(card);
     //for ( let j=0; j< card.length; j++) {
       //  if (x.getElementById("index").innerHTML==)
 }
@@ -159,10 +160,10 @@ ButtonCons.prototype.newContact = function newContact(index) {
     panelButtons.appendChild(edit);
     panelButtons.appendChild(cancel);
     card.appendChild(panelButtons);
-    
-    edit.addEventListener('click',(e) => {that.visible(e)});
-    this.pListContact.appendChild(card);
+    edit.addEventListener('click',(e) => {  that.visibleEdit(e, that.pEditFrmWindow)});
+    that.pListContact.appendChild(card);
     index += 1;
+    
     return index;
     }
 };
