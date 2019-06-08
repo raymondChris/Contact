@@ -15,9 +15,11 @@
  * @param {HTMLElement} inputSearch
  * @param {HTMLElement} colorPalette
  * @param {HTMLElement} btnColor
+ * @param {HTMLElement} editFrmWindow
+ * @param {HtmLElement} editFrm
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow, editFrm) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -31,6 +33,8 @@
      this.pInputSearch = inputSearch;
      this.pClrPalette = colorPalette;
      this.pBtnColor = btnColor;
+     this.pEditFrmWindow = editFrmWindow;
+     this.pEditFrm = editFrm;
      this.contact = [];
  };
 
@@ -39,25 +43,19 @@
 
 ButtonCons.prototype.init = function init() {
     let index = 0;
-    let z;
     this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
                                                         this.allCard()});
 
     this.pButtonX.addEventListener ('click', () => {this.hide()});
 
-    this.pButtonOK.addEventListener ('click', () => { if (z==1) {
-                                                        index = this.newContact(index);
-                                                        } else {
-                                                         this.editCard();
-                                                        };
+    this.pButtonOK.addEventListener ('click', () => {  index =  this.newContact(index);
+                                                                this.hide();
+                                                                this.clear()});
 
-                                                        this.hide();
-                                                        this.clear()});
-
-    this.pBtnNew.addEventListener ('click', () => { z = this.visible();
-                                                        this.clear();
-                                                        this.hideBackButton();
-                                                        this.allCard()});
+    this.pBtnNew.addEventListener ('click', () => { this.visible();
+                                                    this.clear();
+                                                    this.hideBackButton();
+                                                    this.allCard()});
 
     for(let i = 0; i < this.pFltrButton.length; i++) {
         this.pFltrButton[i].addEventListener ('click', () => {  this.allCard();
@@ -78,22 +76,23 @@ ButtonCons.prototype.init = function init() {
 
                                         /* FUNZIONE PER RENDERE VISIBILE IL FORM */
 
-ButtonCons.prototype.visible = function visible(e) {
-    let x;
-    let frm = document.forms["newContactForm"];
-    let y = 0;
+ButtonCons.prototype.visible = function visible() {
     this.pFrmWindow.style.visibility = "visible";
-        document.body.style.overflow = "hidden";
-    if (typeof e != 'undefined' ) {
-        x = e.target.parentElement.parentElement;
-        frm["firstName"].value = x.getElementsByClassName("cName")[0].innerHTML;
-        frm["lastName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
-        frm["phoneNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;                                                
-    } else {
-        y += 1;
-        return y;
-    }
+    this.pFrmWindow.style.overflow = "hidden";
 };
+
+
+                            /* FUNZIONE PER RENDERE VISIBILE IL FORM PER CAMBIARE DATI*/
+
+ButtonCons.prototype.editContact = function editContact (e) {
+    let x = e.target.parentElement.parentElement;
+    this.pEditFrmWindow.style.visibility = "visible";
+    this.pEditFrmWindow.style.overflow = "hidden";
+    this.pEditFrm["editfName"].value = x.getElementsByClassName("cName")[0].innerHTML;
+    this.pEditFrm["editlName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
+    this.pEditFrm["editpNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;
+}
+
 
 
 ButtonCons.prototype.editCard = function editCard(frm) {
@@ -160,7 +159,7 @@ ButtonCons.prototype.newContact = function newContact(index) {
     panelButtons.appendChild(cancel);
     card.appendChild(panelButtons);
     
-    edit.addEventListener('click',(e) => {that.visible(e)});
+    edit.addEventListener('click',(e) => {that.editContact(e)});
     this.pListContact.appendChild(card);
     index += 1;
     return index;

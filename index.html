@@ -25,6 +25,7 @@
         </form> 
     </div>
                                         <!--FORM PER CAMBIARE CONTATTO-->
+
     <div class="editformWindow">
         <form name="editContactForm">
             <label for="editfName">Name</label>
@@ -39,6 +40,7 @@
             </div>
         </form> 
     </div>
+                                        <!--FORM PER CAMBIARE COLORE-->
 
     <div class="colorFormWindow">
         <div class="paletteColor">
@@ -48,6 +50,7 @@
             <div class="pink"></div>
         </div>
     </div>
+                            <!--DIV DEL NOME DELLA APP E DELLA FUNZIONE RICERCA-->
 
     <div class="containerName">
         <div class="nameApp">CONTACS</div>
@@ -58,8 +61,9 @@
             <input type="search" id="search" name="searchInput">
         </div>
     </div>
-
+                           
     <div class="windowApp">
+                                <!-- DIV DEI BOTTONI FILTRO PER INIZIALE-->
         <div class="ltrNavBar">
             <div class="ltrLabel">A</div>
             <div class="ltrLabel">B</div>
@@ -88,11 +92,12 @@
             <div class="ltrLabel">Y</div>
             <div class="ltrLabel">Z</div>
         </div>
-        <div class="listWindow">                    <!--Finestra dei contatti-->
+                                        <!--FINESTRA LISTA CONTATTI-->
+        <div class="listWindow">                    
             <div class="bckButton">
                     <ion-icon name="ios-undo"></ion-icon>
             </div>
-            <div class="contactListWindow"></div>   <!--Finestra dei contatti-->
+            <div class="contactListWindow"></div> 
         </div>
         <div class="btnColor">
                 <ion-icon name="ios-brush"></ion-icon>
@@ -101,27 +106,28 @@
                 <ion-icon name="ios-add-circle-outline"></ion-icon>
         </div>
     </div>
+
 <script src="./myScript.js"></script>
 <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
 <script>
     var globalVar;
     window.onload = function() {
-        let prova = document.getElementsByClassName('editformWindow')[0];
-        let editFrmWindow = document.forms['editContactForm'];
+        let editFrm = document.forms['editContactForm'];
+        let editFrmWindow = document.getElementsByClassName('editformWindow')[0];
         let btnColor = document.getElementsByClassName('btnColor')[0];
         let colorPalettte = document.getElementsByClassName('colorFormWindow')[0];
         let inputSearch = document.getElementById('search');
         let windowName = document.getElementsByClassName("nameApp")[0];
         let btnSearch = document.getElementsByClassName("iconSearch")[0];
+        let frmWindow = document.getElementsByClassName("formWindow")[0];
         let dataNumber = document.forms['newContactForm']['pNumber'];
         let listContact = document.getElementsByClassName("contactListWindow")[0];
         let btnNew = document.getElementsByClassName("btnNew")[0];
-        let frmWindow = document.getElementsByClassName("formWindow")[0];
         let frmButtonX = document.getElementsByClassName("btn")[0];
         let frmButtonOK = document.getElementsByClassName("btn")[1];
         let fltrButton = document.getElementsByClassName("ltrLabel");
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
-        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalettte, btnColor, editFrmWindow,prova);
+        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalettte, btnColor, editFrmWindow, editFrm);
         
         globalVar.init();
     };
