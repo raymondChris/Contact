@@ -230,17 +230,18 @@ ButtonCons.prototype.clear = function clear() {
 
 ButtonCons.prototype.filter = function filter(label) {              
     let card;
+    
     if (this.pListContact.children.length > 0) {
         card = this.pListContact.children;
         for ( let j=0; j< card.length; j++) {
-            if  (card[j].children[0].innerText.charAt(0)!=label) {
+            if  (card[j].getElementsByClassName("cName")[0].innerText.charAt(0)!=label) {
                 card[j].style.display = "none";
             }
         }
         this.showBackButton();
     }
     else {
-             alert("nessun contatto")
+             alert("Nessun Contatto nella rubrica");
     }
     
 }
