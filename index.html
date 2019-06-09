@@ -9,6 +9,18 @@
     <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
 </head>
 <body>
+                                        <!--FORM SICUREZZA DEL DELETE-->
+    <div class="sureForm">
+        <p>You are going to delete</p>
+        <div class="sureFullName"></div>
+        <p>Phone Number</p>
+        <div class="surePhone"></div>
+        <p>Are you sure?</p>
+        <div class="surebtnPanel">
+                <div class="sureBtn">X</div>
+                <div class="sureBtn">OK</div>
+            </div>
+    </div>
                                         <!--FORM PER NUOVO CONTATTP-->
     <div class="formWindow">
         <form name="newContactForm">
@@ -54,7 +66,7 @@
                             <!--DIV DEL NOME DELLA APP E DELLA FUNZIONE RICERCA-->
 
     <div class="containerName">
-        <div class="nameApp">CONTACS</div>
+        <div class="nameApp">CONTACTS</div>
         <div class="frmSearch">
             <div class="iconSearch">
                 <ion-icon name="ios-search"></ion-icon>
@@ -113,6 +125,7 @@
 <script>
     var globalVar;
     window.onload = function() {
+        let editDataNumber = document.forms['editContactForm']['editpNumber'];
         let editBtnX = document.getElementsByClassName('editBtn')[0];
         let editBtnOK = document.getElementsByClassName('editBtn')[1]
         let editFrm = document.forms['editContactForm'];
@@ -133,7 +146,7 @@
         globalVar = new ButtonCons( btnNew, frmWindow, frmButtonX, frmButtonOK, listContact,
                                     fltrButton, backButtonVar, dataNumber, btnSearch, windowName, 
                                     inputSearch, colorPalettte, btnColor, editFrmWindow, editFrm,
-                                    editBtnX, editBtnOK);
+                                    editBtnX, editBtnOK, editDataNumber);
         
         globalVar.init();
     };

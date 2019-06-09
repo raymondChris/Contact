@@ -16,10 +16,13 @@
  * @param {HTMLElement} colorPalette
  * @param {HTMLElement} btnColor
  * @param {HTMLElement} editFrmWindow
- * @param {HtmLElement} editFrm
+ * @param {HTMLElement} editFrm
+ * @param {HTMLElement} editBtnX
+ * @param {HTMLElement} editBtnOK
+ * @param {HTMLElement} editDataNumber
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow, editFrm, editBtnX, editBtnOK) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow, editFrm, editBtnX, editBtnOK, editDataNumber) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -37,6 +40,7 @@
      this.pEditFrm = editFrm;
      this.pEditBtnX = editBtnX;
      this.pEditBtnOK = editBtnOK;
+     this.pEditDataNumber = editDataNumber;
      this.contact = [];
  };
 
@@ -44,7 +48,7 @@
                                          /* FUNZIONE DOVE INIZIALIZZO I BOTTONI */
 
 ButtonCons.prototype.init = function init() {
-    let index = 0;
+    let index = this.pListContact.children.length;
     this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
                                                         this.allCard()});
 
@@ -65,7 +69,8 @@ ButtonCons.prototype.init = function init() {
                                                                 });
         }
 
-    this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
+    this.pDataNumber.addEventListener ('keyup', (e) => {this.pDataNumber.value = this.checkNumber (e, this.pDataNumber.value)});
+    this.pEditDataNumber.addEventListener ('keyup', (e) => {this.pEditDataNumber.value = this.checkNumber (e, this.pEditDataNumber.value)});
 
     window.addEventListener ('click', (e) => {  this.animSearchWidth(e)
                                                 this.paletteVisible(e)});
@@ -74,7 +79,8 @@ ButtonCons.prototype.init = function init() {
 
     this.pEditBtnX.addEventListener ('click', () => {this.editFrmHide()});
 
-    //this.pEditBtnOK.addEventListener ('click', () => );
+    this.pEditBtnOK.addEventListener ('click', () => {  this.editCard(this.pEditFrm)
+                                                        this.editFrmHide ()});
 };
 
 
@@ -106,14 +112,28 @@ ButtonCons.prototype.editFrmHide =function editFrmHide () {
 }
 
 
-
 ButtonCons.prototype.editCard = function editCard(frm) {
     let card = this.pListContact.children;
-    console.log(card);
-    //for ( let j=0; j< card.length; j++) {
-      //  if (x.getElementById("index").innerHTML==)
+    let indexFrm = frm.getElementsByClassName("idContact")[0].innerHTML;
+    for ( let j=0; j< card.length; j++) {
+        if (card[j].getElementsByClassName("index")[0].innerHTML== indexFrm) {
+            card[j].getElementsByClassName("cName")[0].innerHTML = frm["editfName"].value;
+            card[j].getElementsByClassName("cLastName")[0].innerHTML = frm["editlName"].value;
+            card[j].getElementsByClassName("cPhoneNumber")[0].innerHTML = frm["editpNumber"].value;
+        }
+    }
 }
 
+
+ButtonCons.prototype.cancelContact = function cancelContact(e) {
+    let indexCard = e.path[2].getElementsByClassName("index")[0].innerHTML;
+    let cards = this.pListContact.children;
+    let deleteIn = this.pListContact.childNodes[indexCard];
+    this.pListContact.removeChild(deleteIn);
+    for ( let i=0; i<cards.length; i++) {
+        cards[i].getElementsByClassName("index")[0].innerHTML = i;
+    }
+}
 
 ButtonCons.prototype.paletteVisible = function paletteVisible(e) {
     if (this.pBtnColor.contains(e.target)) {
@@ -136,6 +156,7 @@ ButtonCons.prototype.hide = function hide() {
                                     /* FUNZIONE PER AGGIUNGERE IL CONTATTO E CREARE LA CARTA */
 
 ButtonCons.prototype.newContact = function newContact(index) {
+    index = this.pListContact.children.length;
     let x = document.forms["newContactForm"];
     let name = x["firstName"].value;
     let lastname = x["lastName"].value;
@@ -172,8 +193,10 @@ ButtonCons.prototype.newContact = function newContact(index) {
     card.appendChild(panelButtons);
     
     edit.addEventListener('click',(e) => {that.editContact(e)});
+    cancel.addEventListener('click', (e) => {that.cancelContact(e)});
     this.pListContact.appendChild(card);
     index += 1;
+    console.log(index);
     return index;
     }
 };
@@ -273,14 +296,15 @@ ButtonCons.prototype.allCard = function allCard () {
 
                                         /* METODO DI CONTROLLO NUMERO DI TELEFONO NEL FORM */
 
-ButtonCons.prototype.checkNumber = function checkNumber (e) {
+ButtonCons.prototype.checkNumber = function checkNumber (e, value) {
     let key = e.keyCode;
     if (key < 48 || key > 57) {
-        x = this.pDataNumber.value.slice(0,this.pDataNumber.value.length-1);
-        this.pDataNumber.value = x;
+        x = value.slice(0,value.length-1);
+        value = x;
+        return value;
     }
     else {
-        return;
+        return value;
     }
 
 }
