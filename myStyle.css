@@ -337,7 +337,7 @@ input[type=search] {
     background-color: #78F584;
 }
 
-.btnColor:hover, .editButton:hover, .cancelButton:hover, .btnNew:hover {
+.editBtn:hover, .btnColor:hover, .editButton:hover, .cancelButton:hover, .btnNew:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 

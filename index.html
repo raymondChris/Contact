@@ -113,6 +113,8 @@
 <script>
     var globalVar;
     window.onload = function() {
+        let editBtnX = document.getElementsByClassName('editBtn')[0];
+        let editBtnOK = document.getElementsByClassName('editBtn')[1]
         let editFrm = document.forms['editContactForm'];
         let editFrmWindow = document.getElementsByClassName('editformWindow')[0];
         let btnColor = document.getElementsByClassName('btnColor')[0];
@@ -128,7 +130,10 @@
         let frmButtonOK = document.getElementsByClassName("btn")[1];
         let fltrButton = document.getElementsByClassName("ltrLabel");
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
-        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalettte, btnColor, editFrmWindow, editFrm);
+        globalVar = new ButtonCons( btnNew, frmWindow, frmButtonX, frmButtonOK, listContact,
+                                    fltrButton, backButtonVar, dataNumber, btnSearch, windowName, 
+                                    inputSearch, colorPalettte, btnColor, editFrmWindow, editFrm,
+                                    editBtnX, editBtnOK);
         
         globalVar.init();
     };

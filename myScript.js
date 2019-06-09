@@ -19,7 +19,7 @@
  * @param {HtmLElement} editFrm
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow, editFrm) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow, editFrm, editBtnX, editBtnOK) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -35,6 +35,8 @@
      this.pBtnColor = btnColor;
      this.pEditFrmWindow = editFrmWindow;
      this.pEditFrm = editFrm;
+     this.pEditBtnX = editBtnX;
+     this.pEditBtnOK = editBtnOK;
      this.contact = [];
  };
 
@@ -69,6 +71,10 @@ ButtonCons.prototype.init = function init() {
                                                 this.paletteVisible(e)});
 
     this.pInputSearch.addEventListener ('input', () => {this.filterSearch()});
+
+    this.pEditBtnX.addEventListener ('click', () => {this.editFrmHide()});
+
+    //this.pEditBtnOK.addEventListener ('click', () => );
 };
 
 
@@ -91,6 +97,12 @@ ButtonCons.prototype.editContact = function editContact (e) {
     this.pEditFrm["editfName"].value = x.getElementsByClassName("cName")[0].innerHTML;
     this.pEditFrm["editlName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
     this.pEditFrm["editpNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;
+    this.pEditFrm.getElementsByClassName("idContact")[0].innerHTML = x.getElementsByClassName("index")[0].innerHTML;
+};
+
+
+ButtonCons.prototype.editFrmHide =function editFrmHide () {
+    this.pEditFrmWindow.style.visibility = "hidden";
 }
 
 
