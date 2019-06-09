@@ -237,12 +237,11 @@ input[type=search] {
     background-color: #DFF9FA;
     margin: 15px;
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
     width: 180px;
     display: flex;
     flex-direction: column;
     box-shadow: 5px 2px 15px rgba(0,0,0,0.19);
-    padding: 10px;
     position: relative;
 }
 

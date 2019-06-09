@@ -24,9 +24,13 @@
  * @param {HTMLElement} formSureWindow
  * @param {HTMLElement} sureBtnCancel
  * @param {HTMLElement} sureBtnOk
+ * @param {HTMLElement} palette
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow, editFrm, editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow, sureBtnCancel, sureBtnOk) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar,
+                     dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow,
+                     editFrm, editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow, sureBtnCancel,
+                     sureBtnOk, palette) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -38,7 +42,6 @@
      this.pBtnSearch = btnSearch;
      this.pWindowName = windowName;
      this.pInputSearch = inputSearch;
-     this.pClrPalette = colorPalette;
      this.pBtnColor = btnColor;
      this.pEditFrmWindow = editFrmWindow;
      this.pEditFrm = editFrm;
@@ -49,6 +52,8 @@
      this.pFrmSrWindow = formSureWindow;
      this.pSrBtnCancel = sureBtnCancel;
      this.pSrBtnOk = sureBtnOk;
+     this.pPalette = palette;
+     this.pClrPalette = colorPalette;
      this.contact = [];
  };
 
@@ -60,13 +65,13 @@ ButtonCons.prototype.init = function init() {
     this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
                                                         this.allCard()});
 
-    this.pButtonX.addEventListener ('click', () => {this.hide()});
+    this.pButtonX.addEventListener ('click', () => {this.hide(this.pFrmWindow)});
 
     this.pButtonOK.addEventListener ('click', () => {  index =  this.newContact(index);
-                                                                this.hide();
+                                                                this.hide(this.pFrmWindow);
                                                                 this.clear()});
 
-    this.pBtnNew.addEventListener ('click', () => { this.visible();
+    this.pBtnNew.addEventListener ('click', () => { this.visible(this.pFrmWindow);
                                                     this.clear();
                                                     this.hideBackButton();
                                                     this.allCard()});
@@ -80,25 +85,28 @@ ButtonCons.prototype.init = function init() {
     this.pDataNumber.addEventListener ('keyup', (e) => {this.pDataNumber.value = this.checkNumber (e, this.pDataNumber.value)});
     this.pEditDataNumber.addEventListener ('keyup', (e) => {this.pEditDataNumber.value = this.checkNumber (e, this.pEditDataNumber.value)});
 
-    window.addEventListener ('click', (e) => {  this.animSearchWidth(e)
-                                                this.paletteVisible(e)});
+    window.addEventListener ('click', (e) => {  this.animSearchWidth(e)});
 
     this.pInputSearch.addEventListener ('input', () => {this.filterSearch()});
 
-    this.pEditBtnX.addEventListener ('click', () => {this.editFrmHide()});
+    this.pEditBtnX.addEventListener ('click', () => {this.hide(this.pEditFrmWindow)});
 
     this.pEditBtnOK.addEventListener ('click', () => {  this.editCard(this.pEditFrm);
-                                                        this.editFrmHide ()});
+                                                        this.hide (this.pEditFrmWindow)});
 
-    this.pSrBtnCancel.addEventListener ('click', () => {this.sureHide()});
+    this.pSrBtnCancel.addEventListener ('click', () => {this.hide(this.pSrWindow)});
+    this.pSrBtnOk.addEventListener ('click', (e) => {   this.cancelContact(e);
+                                                        this.hide(this.pSrWindow)});
+
+    this.pBtnColor.addEventListener ('click', () => {this.visible(this.pClrPalette)});
 };
 
 
 
                                         /* FUNZIONE PER RENDERE VISIBILE IL FORM */
 
-ButtonCons.prototype.visible = function visible() {
-    this.pFrmWindow.style.visibility = "visible";
+ButtonCons.prototype.visible = function visible(frm) {
+    frm.style.visibility = "visible";
     document.body.style.overflow = "scroll";
 };
 
@@ -116,19 +124,19 @@ ButtonCons.prototype.editContact = function editContact (e) {
 };
 
 
-                                        /* FUNZIONE PER RENDERE INVISIBILE IL FORM */
+                                                        /* FUNZIONE PER RENDERE INVISIBILE ALCUNE FINESTRE */
 
-ButtonCons.prototype.hide = function hide() {
-    this.pFrmWindow.style.visibility = "hidden";
+ButtonCons.prototype.hide = function hide(windowAlert) {
+    windowAlert.style.visibility = "hidden";
 };
 
-ButtonCons.prototype.editFrmHide =function editFrmHide () {
-    this.pEditFrmWindow.style.visibility = "hidden";
-};
-
-ButtonCons.prototype.sureHide = function sureHide() {
-    this.pSrWindow.style.visibility = "hidden";
-};
+//ButtonCons.prototype.editFrmHide =function editFrmHide () {
+//    this.pEditFrmWindow.style.visibility = "hidden";
+//};
+//
+//ButtonCons.prototype.sureHide = function sureHide() {
+//    this.pSrWindow.style.visibility = "hidden";
+//};
 
 
 ButtonCons.prototype.editCard = function editCard(frm) {
@@ -150,7 +158,9 @@ ButtonCons.prototype.sureWindow = function sureWindow (e) {
     let nameCard = e.path[2].getElementsByClassName("cName")[0].innerHTML;
     let lastNameCard = e.path[2].getElementsByClassName("cLastName")[0].innerHTML;
     let phoneNumberCard = e.path[2].getElementsByClassName("cPhoneNumber")[0].innerHTML;
+    
     let indexCard = e.path[2].getElementsByClassName("index")[0].innerHTML;
+    
     this.pSrWindow.style.visibility = "visible";
     
     this.pFrmSrWindow.getElementsByClassName("indexDel")[0].innerHTML = indexCard;
@@ -159,7 +169,7 @@ ButtonCons.prototype.sureWindow = function sureWindow (e) {
 }
 
 ButtonCons.prototype.cancelContact = function cancelContact(e) {
-    
+    let indexCard = e.path[2].getElementsByClassName("indexDel")[0].innerHTML;
     let cards = this.pListContact.children;
     let deleteIn = this.pListContact.childNodes[indexCard];
     this.pListContact.removeChild(deleteIn);
@@ -167,16 +177,6 @@ ButtonCons.prototype.cancelContact = function cancelContact(e) {
         cards[i].getElementsByClassName("index")[0].innerHTML = i;
     }
 }
-
-ButtonCons.prototype.paletteVisible = function paletteVisible(e) {
-    if (this.pBtnColor.contains(e.target)) {
-        this.pClrPalette.style.visibility = "visible";
-        document.body.style.overflow = "hidden";
-    } else {
-        this.pClrPalette.style.visibility = "hidden";
-        document.body.style.overflow = "scroll";
-    }
-};
 
 
                                     /* FUNZIONE PER AGGIUNGERE IL CONTATTO E CREARE LA CARTA */

@@ -60,10 +60,10 @@
 
     <div class="colorFormWindow">
         <div class="paletteColor">
-            <div class="blue"></div>
-            <div class="red"></div>
-            <div class="yellow"></div>
-            <div class="pink"></div>
+            <div id="palette" class="blue"></div>
+            <div id="palette" class="red"></div>
+            <div id="palette" class="yellow"></div>
+            <div id="palette" class="pink"></div>
         </div>
     </div>
                             <!--DIV DEL NOME DELLA APP E DELLA FUNZIONE RICERCA-->
@@ -128,6 +128,8 @@
 <script>
     var globalVar;
     window.onload = function() {
+        let colorPalette = document.getElementsByClassName('colorFormWindow')[0];
+        let palette = document.getElementsByClassName("paletteColor")[0].children;
         let sureBtnOk = document.getElementsByClassName("sureBtn")[1];
         let sureBtnCancel = document.getElementsByClassName("sureBtn")[0];
         let sureWindow = document.getElementsByClassName('sureWindow')[0];
@@ -138,7 +140,6 @@
         let editFrm = document.forms['editContactForm'];
         let editFrmWindow = document.getElementsByClassName('editformWindow')[0];
         let btnColor = document.getElementsByClassName('btnColor')[0];
-        let colorPalettte = document.getElementsByClassName('colorFormWindow')[0];
         let inputSearch = document.getElementById('search');
         let windowName = document.getElementsByClassName("nameApp")[0];
         let btnSearch = document.getElementsByClassName("iconSearch")[0];
@@ -152,9 +153,9 @@
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
         globalVar = new ButtonCons( btnNew, frmWindow, frmButtonX, frmButtonOK, listContact,
                                     fltrButton, backButtonVar, dataNumber, btnSearch, windowName, 
-                                    inputSearch, colorPalettte, btnColor, editFrmWindow, editFrm,
+                                    inputSearch, colorPalette, btnColor, editFrmWindow, editFrm,
                                     editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow,
-                                    sureBtnCancel, sureBtnOk);
+                                    sureBtnCancel, sureBtnOk, palette);
         
         globalVar.init();
     };
