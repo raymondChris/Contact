@@ -20,9 +20,13 @@
  * @param {HTMLElement} editBtnX
  * @param {HTMLElement} editBtnOK
  * @param {HTMLElement} editDataNumber
+ * @param {HTMLElement} sureWindow
+ * @param {HTMLElement} formSureWindow
+ * @param {HTMLElement} sureBtnCancel
+ * @param {HTMLElement} sureBtnOk
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow, editFrm, editBtnX, editBtnOK, editDataNumber) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow, editFrm, editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow, sureBtnCancel, sureBtnOk) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -41,6 +45,10 @@
      this.pEditBtnX = editBtnX;
      this.pEditBtnOK = editBtnOK;
      this.pEditDataNumber = editDataNumber;
+     this.pSrWindow = sureWindow;
+     this.pFrmSrWindow = formSureWindow;
+     this.pSrBtnCancel = sureBtnCancel;
+     this.pSrBtnOk = sureBtnOk;
      this.contact = [];
  };
 
@@ -79,10 +87,11 @@ ButtonCons.prototype.init = function init() {
 
     this.pEditBtnX.addEventListener ('click', () => {this.editFrmHide()});
 
-    this.pEditBtnOK.addEventListener ('click', () => {  this.editCard(this.pEditFrm)
+    this.pEditBtnOK.addEventListener ('click', () => {  this.editCard(this.pEditFrm);
                                                         this.editFrmHide ()});
-};
 
+    this.pSrBtnCancel.addEventListener ('click', () => {this.sureHide()});
+};
 
 
 
@@ -90,7 +99,7 @@ ButtonCons.prototype.init = function init() {
 
 ButtonCons.prototype.visible = function visible() {
     this.pFrmWindow.style.visibility = "visible";
-    this.pFrmWindow.style.overflow = "hidden";
+    document.body.style.overflow = "scroll";
 };
 
 
@@ -107,9 +116,19 @@ ButtonCons.prototype.editContact = function editContact (e) {
 };
 
 
+                                        /* FUNZIONE PER RENDERE INVISIBILE IL FORM */
+
+ButtonCons.prototype.hide = function hide() {
+    this.pFrmWindow.style.visibility = "hidden";
+};
+
 ButtonCons.prototype.editFrmHide =function editFrmHide () {
     this.pEditFrmWindow.style.visibility = "hidden";
-}
+};
+
+ButtonCons.prototype.sureHide = function sureHide() {
+    this.pSrWindow.style.visibility = "hidden";
+};
 
 
 ButtonCons.prototype.editCard = function editCard(frm) {
@@ -125,8 +144,22 @@ ButtonCons.prototype.editCard = function editCard(frm) {
 }
 
 
-ButtonCons.prototype.cancelContact = function cancelContact(e) {
+
+
+ButtonCons.prototype.sureWindow = function sureWindow (e) {
+    let nameCard = e.path[2].getElementsByClassName("cName")[0].innerHTML;
+    let lastNameCard = e.path[2].getElementsByClassName("cLastName")[0].innerHTML;
+    let phoneNumberCard = e.path[2].getElementsByClassName("cPhoneNumber")[0].innerHTML;
     let indexCard = e.path[2].getElementsByClassName("index")[0].innerHTML;
+    this.pSrWindow.style.visibility = "visible";
+    
+    this.pFrmSrWindow.getElementsByClassName("indexDel")[0].innerHTML = indexCard;
+    this.pFrmSrWindow.getElementsByClassName("sureFullName")[0].innerHTML = nameCard + "" + lastNameCard;
+    this.pFrmSrWindow.getElementsByClassName("surePhone")[0].innerHTML = phoneNumberCard;
+}
+
+ButtonCons.prototype.cancelContact = function cancelContact(e) {
+    
     let cards = this.pListContact.children;
     let deleteIn = this.pListContact.childNodes[indexCard];
     this.pListContact.removeChild(deleteIn);
@@ -143,13 +176,6 @@ ButtonCons.prototype.paletteVisible = function paletteVisible(e) {
         this.pClrPalette.style.visibility = "hidden";
         document.body.style.overflow = "scroll";
     }
-};
-
-                                        /* FUNZIONE PER RENDERE INVISIBILE IL FORM */
-
-ButtonCons.prototype.hide = function hide() {
-    this.pFrmWindow.style.visibility = "hidden";
-    document.body.style.overflow = "scroll";
 };
 
 
@@ -193,7 +219,7 @@ ButtonCons.prototype.newContact = function newContact(index) {
     card.appendChild(panelButtons);
     
     edit.addEventListener('click',(e) => {that.editContact(e)});
-    cancel.addEventListener('click', (e) => {that.cancelContact(e)});
+    cancel.addEventListener('click', (e) => {that.sureWindow(e)});
     this.pListContact.appendChild(card);
     index += 1;
     console.log(index);

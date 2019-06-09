@@ -10,17 +10,20 @@
 </head>
 <body>
                                         <!--FORM SICUREZZA DEL DELETE-->
-    <div class="sureForm">
-        <p>You are going to delete</p>
-        <div class="sureFullName"></div>
-        <p>Phone Number</p>
-        <div class="surePhone"></div>
-        <p>Are you sure?</p>
-        <div class="surebtnPanel">
-                <div class="sureBtn">X</div>
-                <div class="sureBtn">OK</div>
+    <div class="sureWindow">
+        <div class="sureForm">
+            <div class="indexDel"></div>
+            <p>You are going to delete</p>
+            <div class="sureFullName"></div>
+            <p>Phone Number</p>
+            <div class="surePhone"></div>
+            <p class="question">Are you sure?</p>
+            <div class="sureBtnPanel">
+                    <div class="sureBtn">X</div>
+                    <div class="sureBtn">OK</div>
             </div>
-    </div>
+        </div>
+    </div>    
                                         <!--FORM PER NUOVO CONTATTP-->
     <div class="formWindow">
         <form name="newContactForm">
@@ -125,6 +128,10 @@
 <script>
     var globalVar;
     window.onload = function() {
+        let sureBtnOk = document.getElementsByClassName("sureBtn")[1];
+        let sureBtnCancel = document.getElementsByClassName("sureBtn")[0];
+        let sureWindow = document.getElementsByClassName('sureWindow')[0];
+        let formSureWindow = document.getElementsByClassName('sureForm')[0];
         let editDataNumber = document.forms['editContactForm']['editpNumber'];
         let editBtnX = document.getElementsByClassName('editBtn')[0];
         let editBtnOK = document.getElementsByClassName('editBtn')[1]
@@ -146,7 +153,8 @@
         globalVar = new ButtonCons( btnNew, frmWindow, frmButtonX, frmButtonOK, listContact,
                                     fltrButton, backButtonVar, dataNumber, btnSearch, windowName, 
                                     inputSearch, colorPalettte, btnColor, editFrmWindow, editFrm,
-                                    editBtnX, editBtnOK, editDataNumber);
+                                    editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow,
+                                    sureBtnCancel, sureBtnOk);
         
         globalVar.init();
     };
