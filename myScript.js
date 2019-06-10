@@ -27,12 +27,14 @@
  * @param {HTMLElement} palette
  * @param {HTMLElement} containerTitle
  * @param {HTMLElement} windowApp
+ * @param {HTMLElement} iconSearch
+ * @param {HTMLElement} iconBack
  */
 
  function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar,
                      dataNumber, btnSearch, windowName, inputSearch, colorPaletteForm, btnColor, editFrmWindow,
                      editFrm, editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow, sureBtnCancel,
-                     sureBtnOk, palette, containerTitle, windowApp) {
+                     sureBtnOk, palette, containerTitle, windowApp, iconSearch, iconBack) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -58,6 +60,8 @@
      this.pClrChange = colorPaletteForm;
      this.pCntnrTitle = containerTitle;
      this.pWindowApp = windowApp;
+     this.pIconSearch = iconSearch;
+     this.pIconBack = iconBack;
      this.contact = [];
  };
 
@@ -408,46 +412,106 @@ ButtonCons.prototype.filterSearch = function filterSearch() {
                                         /* FUNZIONE PER CAMBIARE COLORE ALL'APPLICATIVO */
 
 ButtonCons.prototype.changeColor = function changeColor(e) {
-    console.log(this.pFrmWindow.children[0])
+    //let x = document.getElementsByClassName("cardButtons")[0];
+   // x = x.getElementsByClassName("editButton")[0].children[0];
+    //console.log(x)
     switch (e.target.className) {
         case "blue":
             //Base color
-            this.pCntnrTitle.style.backgroundColor = "#94C0DF";
+            this.pCntnrTitle.style.backgroundColor = "#52A7E3";
             for (let i = 0; i < this.pFltrButton.length; i++) {
-                this.pFltrButton[i].style.backgroundColor = "#94C0DF";
+                this.pFltrButton[i].style.backgroundColor = "#52A7E3";
+                this.pFltrButton[i].style.color ="#273575";
             }
-            this.pBtnColor.style.backgroundColor = "#94C0DF";
+            this.pBtnColor.style.backgroundColor = "#52A7E3";
 
             //Forms and list color
             this.pWindowApp.style.backgroundColor = "#C6F5ED";
             this.pFrmSrWindow.style.backgroundColor = "#C6F5ED";
             this.pFrmWindow.children[0].style.backgroundColor = "#C6F5ED";
             this.pClrChange.children[0].style.backgroundColor = "#C6F5ED";
+            
 
             //Icons color
-            
+            this.pIconSearch.children[0].style.color = "#273575";
+            this.pIconBack.children[0].style.color = "#273575";
+            this.pBtnColor.children[0].style.color = "#273575"
+
             //Title color
+            this.pWindowName.style.color = "#273575";
             
             break;
         case "red":
-            alert('you choose red');
+            //Base color
+            this.pCntnrTitle.style.backgroundColor = "#CF4040";
+            for (let i = 0; i < this.pFltrButton.length; i++) {
+                this.pFltrButton[i].style.backgroundColor = "#CF4040";
+                this.pFltrButton[i].style.color ="#4F2024";
+            }
+            this.pBtnColor.style.backgroundColor = "#CF4040";
+
+            //Forms and list color
+            this.pWindowApp.style.backgroundColor = "#E8B0AE";
+            this.pFrmSrWindow.style.backgroundColor = "#E8B0AE";
+            this.pFrmWindow.children[0].style.backgroundColor = "#E8B0AE";
+            this.pClrChange.children[0].style.backgroundColor = "#E8B0AE";
+            
+
+            //Icons color
+            this.pIconSearch.children[0].style.color = "#4F2024";
+            this.pIconBack.children[0].style.color = "#4F2024";
+            this.pBtnColor.children[0].style.color = "#4F2024"
+
+            //Title color
+            this.pWindowName.style.color = "#4F2024";
+
             break;
         case "pink":
-            alert('you choose pink');
+            //Base color
+            this.pCntnrTitle.style.backgroundColor = "#FFABAB";
+            for (let i = 0; i < this.pFltrButton.length; i++) {
+                this.pFltrButton[i].style.backgroundColor = "#FFABAB";
+                this.pFltrButton[i].style.color = "#704C50";
+            }
+            this.pBtnColor.style.backgroundColor = "#FFABAB";
+
+            //Forms and list color
+            this.pWindowApp.style.backgroundColor = "#FFE1E0";
+            this.pFrmSrWindow.style.backgroundColor = "#FFE1E0";
+            this.pFrmWindow.children[0].style.backgroundColor = "#FFE1E0";
+            this.pClrChange.children[0].style.backgroundColor = "#FFE1E0";
+
+            //Icons color
+            this.pIconSearch.children[0].style.color = "#704C50";
+            this.pIconBack.children[0].style.color = "#704C50";
+            this.pBtnColor.children[0].style.color = "#704C50";
+
+            //Title color
+            this.pWindowName.style.color = "#704C50";
+
             break;
         case "yellow":
             //Base color
             this.pCntnrTitle.style.backgroundColor = "#FFDD54";
             for (let i = 0; i < this.pFltrButton.length; i++) {
                 this.pFltrButton[i].style.backgroundColor = "#FFDD54";
+                this.pFltrButton[i].style.color = "#C78E38";
             }
             this.pBtnColor.style.backgroundColor = "#FFDD54";
 
             //Forms and list color
             this.pWindowApp.style.backgroundColor = "#F5F4DA";
             this.pFrmSrWindow.style.backgroundColor = "#F5F4DA";
-            this.pFrmWindow.children[0].style.backgroundColor = "#FFDD54";
-            this.pClrChange.children[0].style.backgroundColor = "#FFDD54";
+            this.pFrmWindow.children[0].style.backgroundColor = "#F5F4DA";
+            this.pClrChange.children[0].style.backgroundColor = "#F5F4DA";
+
+            //Icons color
+            this.pIconSearch.children[0].style.color = "#C78E38";
+            this.pIconBack.children[0].style.color = "#C78E38";
+            this.pBtnColor.children[0].style.color = "#C78E38";
+
+            //Title color
+            this.pWindowName.style.color = "#C78E38";
             break;
     }
 }

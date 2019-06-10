@@ -140,6 +140,8 @@
 <script>
     var globalVar;
     window.onload = function() {
+        let iconBack = document.getElementsByClassName('bckButton')[0];
+        let iconSearch = document.getElementsByClassName('iconSearch')[0];
         let windowApp = document.getElementsByClassName('windowApp')[0];
         let containerTitle = document.getElementsByClassName('containerName')[0];
         let colorPaletteForm = document.getElementsByClassName('colorFormWindow')[0];
@@ -169,7 +171,8 @@
                                     fltrButton, backButtonVar, dataNumber, btnSearch, windowName, 
                                     inputSearch, colorPaletteForm, btnColor, editFrmWindow, editFrm,
                                     editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow,
-                                    sureBtnCancel, sureBtnOk, palette, containerTitle, windowApp);
+                                    sureBtnCancel, sureBtnOk, palette, containerTitle, windowApp,
+                                    iconSearch, iconBack);
         
         globalVar.init();
     };
