@@ -206,7 +206,7 @@ input[type=search] {
 .listWindow {
     width: 90%;
     float: left;
-    border: 1px solid black;
+    border: none
 }
 
 .bckButton {
@@ -319,6 +319,9 @@ input[type=search] {
     background-color: #78F584;
 }
 
+.idContact, .indexDel, .index {
+    display: none;
+}
 .sureBtn:hover, .editBtn:hover, .btnColor:hover, .editButton:hover, .cancelButton:hover, .btnNew:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
