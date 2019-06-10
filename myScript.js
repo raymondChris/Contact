@@ -25,12 +25,14 @@
  * @param {HTMLElement} sureBtnCancel
  * @param {HTMLElement} sureBtnOk
  * @param {HTMLElement} palette
+ * @param {HTMLElement} containerTitle
+ * @param {HTMLElement} windowApp
  */
 
  function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar,
                      dataNumber, btnSearch, windowName, inputSearch, colorPaletteForm, btnColor, editFrmWindow,
                      editFrm, editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow, sureBtnCancel,
-                     sureBtnOk, palette) {
+                     sureBtnOk, palette, containerTitle, windowApp) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -54,6 +56,8 @@
      this.pSrBtnOk = sureBtnOk;
      this.pPalette = palette;
      this.pClrChange = colorPaletteForm;
+     this.pCntnrTitle = containerTitle;
+     this.pWindowApp = windowApp;
      this.contact = [];
  };
 
@@ -404,9 +408,26 @@ ButtonCons.prototype.filterSearch = function filterSearch() {
                                         /* FUNZIONE PER CAMBIARE COLORE ALL'APPLICATIVO */
 
 ButtonCons.prototype.changeColor = function changeColor(e) {
+    console.log(this.pFrmWindow.children[0])
     switch (e.target.className) {
         case "blue":
-            alert('you choose blue');
+            //Base color
+            this.pCntnrTitle.style.backgroundColor = "#94C0DF";
+            for (let i = 0; i < this.pFltrButton.length; i++) {
+                this.pFltrButton[i].style.backgroundColor = "#94C0DF";
+            }
+            this.pBtnColor.style.backgroundColor = "#94C0DF";
+
+            //Forms and list color
+            this.pWindowApp.style.backgroundColor = "#C6F5ED";
+            this.pFrmSrWindow.style.backgroundColor = "#C6F5ED";
+            this.pFrmWindow.children[0].style.backgroundColor = "#C6F5ED";
+            this.pClrChange.children[0].style.backgroundColor = "#C6F5ED";
+
+            //Icons color
+            
+            //Title color
+            
             break;
         case "red":
             alert('you choose red');
@@ -415,7 +436,18 @@ ButtonCons.prototype.changeColor = function changeColor(e) {
             alert('you choose pink');
             break;
         case "yellow":
-            alert('you choose yellow');
+            //Base color
+            this.pCntnrTitle.style.backgroundColor = "#FFDD54";
+            for (let i = 0; i < this.pFltrButton.length; i++) {
+                this.pFltrButton[i].style.backgroundColor = "#FFDD54";
+            }
+            this.pBtnColor.style.backgroundColor = "#FFDD54";
+
+            //Forms and list color
+            this.pWindowApp.style.backgroundColor = "#F5F4DA";
+            this.pFrmSrWindow.style.backgroundColor = "#F5F4DA";
+            this.pFrmWindow.children[0].style.backgroundColor = "#FFDD54";
+            this.pClrChange.children[0].style.backgroundColor = "#FFDD54";
             break;
     }
 }
