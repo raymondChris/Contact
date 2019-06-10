@@ -95,16 +95,13 @@ input {
 .btnPanel, .editBtnPanel, .sureBtnPanel {
     display: flex;
     justify-content: space-between;
+    font-size: 35px;
     width: 100%;
     height: auto;
     margin-top: 30px;
 }
 
 .btn, .editBtn, .sureBtn {
-    width: 45px;
-    background-color: white;
-    height: 45px;
-    border: 1px solid black;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -258,11 +255,21 @@ input[type=search] {
     left: 0px;
 }
 
-.editButton, .cancelButton {
-    width: 40px;
-    height: 40px;
-    border: 1px solid black;
+.editButton {
+    color: #5C7DC4;
+    border-radius: 10px;
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.cancelButton, ion-icon[name="ios-close-circle-outline"], ion-icon[name="ios-close-circle-outline"] {
     border-radius: 50%;
+    font-size: 37px;
+    border: none;
+    color: red;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -326,6 +333,11 @@ input[type=search] {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+ion-icon[name="ios-checkmark-circle"] {
+    color: #78F584;
+    font-weight: 35px;
+}
+
 ion-icon[name="ios-brush"] {
     color: #5C7DC4;
     font-size: 30px;
@@ -344,4 +356,8 @@ ion-icon[name="ios-search"] {
 ion-icon[name="ios-undo"] {
     color: #5C7DC4;
     font-size: 25px;
+}
+
+ion-icon[name="ios-create"] {
+    color:  #5C7DC4;
 }

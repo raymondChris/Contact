@@ -19,8 +19,12 @@
             <div class="surePhone"></div>
             <p class="question">Are you sure?</p>
             <div class="sureBtnPanel">
-                    <div class="sureBtn">X</div>
-                    <div class="sureBtn">OK</div>
+                    <div class="sureBtn">
+                        <ion-icon name="ios-close-circle-outline"></ion-icon>
+                    </div>
+                    <div class="sureBtn">
+                        <ion-icon name="ios-checkmark-circle"></ion-icon>
+                    </div>
             </div>
         </div>
     </div>    
@@ -34,8 +38,12 @@
             <label for="pNumber">Phone Number</label>
             <input type="text" id="pNumber" name="phoneNumber">
             <div class="btnPanel">
-                <div class="btn">X</div>
-                <div class="btn">OK</div>
+                <div class="btn">
+                    <ion-icon name="ios-close-circle-outline"></ion-icon>
+                </div>
+                <div class="btn">
+                    <ion-icon name="ios-checkmark-circle"></ion-icon>
+                </div>
             </div>
         </form> 
     </div>
@@ -51,8 +59,12 @@
             <label for="editpNumber">Phone Number</label>
             <input type="text" id="editpNumber" name="editphoneNumber">
             <div class="editBtnPanel">
-                <div class="editBtn">X</div>
-                <div class="editBtn">OK</div>
+                <div class="editBtn">
+                    <ion-icon name="ios-close-circle-outline"></ion-icon>
+                </div>
+                <div class="editBtn">
+                    <ion-icon name="ios-checkmark-circle"></ion-icon>
+                </div>
             </div>
         </form> 
     </div>
@@ -128,7 +140,7 @@
 <script>
     var globalVar;
     window.onload = function() {
-        let colorPalette = document.getElementsByClassName('colorFormWindow')[0];
+        let colorPaletteForm = document.getElementsByClassName('colorFormWindow')[0];
         let palette = document.getElementsByClassName("paletteColor")[0].children;
         let sureBtnOk = document.getElementsByClassName("sureBtn")[1];
         let sureBtnCancel = document.getElementsByClassName("sureBtn")[0];
@@ -153,7 +165,7 @@
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
         globalVar = new ButtonCons( btnNew, frmWindow, frmButtonX, frmButtonOK, listContact,
                                     fltrButton, backButtonVar, dataNumber, btnSearch, windowName, 
-                                    inputSearch, colorPalette, btnColor, editFrmWindow, editFrm,
+                                    inputSearch, colorPaletteForm, btnColor, editFrmWindow, editFrm,
                                     editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow,
                                     sureBtnCancel, sureBtnOk, palette);
         

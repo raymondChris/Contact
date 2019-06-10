@@ -28,7 +28,7 @@
  */
 
  function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar,
-                     dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow,
+                     dataNumber, btnSearch, windowName, inputSearch, colorPaletteForm, btnColor, editFrmWindow,
                      editFrm, editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow, sureBtnCancel,
                      sureBtnOk, palette) {
      this.pListContact = listContact;
@@ -53,7 +53,7 @@
      this.pSrBtnCancel = sureBtnCancel;
      this.pSrBtnOk = sureBtnOk;
      this.pPalette = palette;
-     this.pClrPalette = colorPalette;
+     this.pClrChange = colorPaletteForm;
      this.contact = [];
  };
 
@@ -76,7 +76,7 @@ ButtonCons.prototype.init = function init() {
                                                     this.hideBackButton();
                                                     this.allCard()});
 
-    for(let i = 0; i < this.pFltrButton.length; i++) {
+    for (let i = 0; i < this.pFltrButton.length; i++) {
         this.pFltrButton[i].addEventListener ('click', () => {  this.allCard();
                                                                 this.filter(this.pFltrButton[i].innerText);
                                                                 });
@@ -98,7 +98,14 @@ ButtonCons.prototype.init = function init() {
     this.pSrBtnOk.addEventListener ('click', (e) => {   this.cancelContact(e);
                                                         this.hide(this.pSrWindow)});
 
-    this.pBtnColor.addEventListener ('click', () => {this.visible(this.pClrPalette)});
+    this.pBtnColor.addEventListener ('click', () => {this.visible(this.pClrChange)});
+
+    for (let j = 0; j < this.pPalette.length; j++) {
+        this.pPalette[j].addEventListener ('click', (e) => { this.changeColor(e);
+                                                            this.hide(this.pClrChange)})
+    }
+
+
 };
 
 
@@ -114,9 +121,10 @@ ButtonCons.prototype.visible = function visible(frm) {
                             /* FUNZIONE PER RENDERE VISIBILE IL FORM PER CAMBIARE DATI*/
 
 ButtonCons.prototype.editContact = function editContact (e) {
-    let x = e.target.parentElement.parentElement;
+    let x = e.target.offsetParent.offsetParent;
     this.pEditFrmWindow.style.visibility = "visible";
     this.pEditFrmWindow.style.overflow = "hidden";
+
     this.pEditFrm["editfName"].value = x.getElementsByClassName("cName")[0].innerHTML;
     this.pEditFrm["editlName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
     this.pEditFrm["editpNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;
@@ -129,14 +137,6 @@ ButtonCons.prototype.editContact = function editContact (e) {
 ButtonCons.prototype.hide = function hide(windowAlert) {
     windowAlert.style.visibility = "hidden";
 };
-
-//ButtonCons.prototype.editFrmHide =function editFrmHide () {
-//    this.pEditFrmWindow.style.visibility = "hidden";
-//};
-//
-//ButtonCons.prototype.sureHide = function sureHide() {
-//    this.pSrWindow.style.visibility = "hidden";
-//};
 
 
 ButtonCons.prototype.editCard = function editCard(frm) {
@@ -155,21 +155,22 @@ ButtonCons.prototype.editCard = function editCard(frm) {
 
 
 ButtonCons.prototype.sureWindow = function sureWindow (e) {
-    let nameCard = e.path[2].getElementsByClassName("cName")[0].innerHTML;
-    let lastNameCard = e.path[2].getElementsByClassName("cLastName")[0].innerHTML;
-    let phoneNumberCard = e.path[2].getElementsByClassName("cPhoneNumber")[0].innerHTML;
+    let x = e.target.offsetParent.offsetParent;
+    let nameCard = x.getElementsByClassName("cName")[0].innerHTML;
+    let lastNameCard = x.getElementsByClassName("cLastName")[0].innerHTML;
+    let phoneNumberCard = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;
     
-    let indexCard = e.path[2].getElementsByClassName("index")[0].innerHTML;
+    let indexCard = x.getElementsByClassName("index")[0].innerHTML;
     
     this.pSrWindow.style.visibility = "visible";
     
     this.pFrmSrWindow.getElementsByClassName("indexDel")[0].innerHTML = indexCard;
-    this.pFrmSrWindow.getElementsByClassName("sureFullName")[0].innerHTML = nameCard + "" + lastNameCard;
+    this.pFrmSrWindow.getElementsByClassName("sureFullName")[0].innerHTML = nameCard + " " + lastNameCard;
     this.pFrmSrWindow.getElementsByClassName("surePhone")[0].innerHTML = phoneNumberCard;
 }
 
 ButtonCons.prototype.cancelContact = function cancelContact(e) {
-    let indexCard = e.path[2].getElementsByClassName("indexDel")[0].innerHTML;
+    let indexCard = e.path[7].getElementsByClassName("indexDel")[0].innerHTML;
     let cards = this.pListContact.children;
     let deleteIn = this.pListContact.childNodes[indexCard];
     this.pListContact.removeChild(deleteIn);
@@ -222,7 +223,6 @@ ButtonCons.prototype.newContact = function newContact(index) {
     cancel.addEventListener('click', (e) => {that.sureWindow(e)});
     this.pListContact.appendChild(card);
     index += 1;
-    console.log(index);
     return index;
     }
 };
@@ -237,14 +237,14 @@ ButtonCons.prototype.addEditCancelbutton = function addEditCancelbutton() {
 ButtonCons.prototype.createEdit = function createEdit() {
     let edit = document.createElement('div');
     edit.classList.add("editButton");
-    edit.innerHTML = "E";
+    edit.innerHTML = "<ion-icon name=\"ios-create\"></ion-icon>";
     return edit;
 }
 
 ButtonCons.prototype.createCancel = function createCancel() {
     let cancel = document.createElement('div');
     cancel.classList.add("cancelButton");
-    cancel.innerHTML = "X";
+    cancel.innerHTML = "<ion-icon name=\"ios-close-circle-outline\"></ion-icon>";
     return cancel;
 }
 
@@ -397,5 +397,25 @@ ButtonCons.prototype.filterSearch = function filterSearch() {
         else {
             card[i].style.display = "block"
         }
+    }
+}
+
+
+                                        /* FUNZIONE PER CAMBIARE COLORE ALL'APPLICATIVO */
+
+ButtonCons.prototype.changeColor = function changeColor(e) {
+    switch (e.target.className) {
+        case "blue":
+            alert('you choose blue');
+            break;
+        case "red":
+            alert('you choose red');
+            break;
+        case "pink":
+            alert('you choose pink');
+            break;
+        case "yellow":
+            alert('you choose yellow');
+            break;
     }
 }
