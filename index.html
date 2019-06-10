@@ -9,6 +9,22 @@
     <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
 </head>
 <body>
+                                        <!--FORM SICUREZZA DEL DELETE-->
+    <div class="sureWindow">
+        <div class="sureForm">
+            <div class="indexDel"></div>
+            <p>You are going to delete</p>
+            <div class="sureFullName"></div>
+            <p>Phone Number</p>
+            <div class="surePhone"></div>
+            <p class="question">Are you sure?</p>
+            <div class="sureBtnPanel">
+                    <div class="sureBtn">X</div>
+                    <div class="sureBtn">OK</div>
+            </div>
+        </div>
+    </div>    
+                                        <!--FORM PER NUOVO CONTATTP-->
     <div class="formWindow">
         <form name="newContactForm">
             <label for="fName">Name</label>
@@ -23,24 +39,47 @@
             </div>
         </form> 
     </div>
+                                        <!--FORM PER CAMBIARE CONTATTO-->
+
+    <div class="editformWindow">
+        <form name="editContactForm">
+            <div class="idContact"></div>
+            <label for="editfName">Name</label>
+            <input type="text" id="editfName" name="editfirstName">
+            <label for="editlName">Last Name</label>
+            <input type="text" id="editlName" name="editlastName">
+            <label for="editpNumber">Phone Number</label>
+            <input type="text" id="editpNumber" name="editphoneNumber">
+            <div class="editBtnPanel">
+                <div class="editBtn">X</div>
+                <div class="editBtn">OK</div>
+            </div>
+        </form> 
+    </div>
+                                        <!--FORM PER CAMBIARE COLORE-->
+
     <div class="colorFormWindow">
         <div class="paletteColor">
-            <div class="blue"></div>
-            <div class="red"></div>
-            <div class="yellow"></div>
-            <div class="pink"></div>
+            <div id="palette" class="blue"></div>
+            <div id="palette" class="red"></div>
+            <div id="palette" class="yellow"></div>
+            <div id="palette" class="pink"></div>
         </div>
     </div>
+                            <!--DIV DEL NOME DELLA APP E DELLA FUNZIONE RICERCA-->
+
     <div class="containerName">
-    <div class="nameApp">CONTACS</div>
-    <div class="frmSearch">
-        <div class="iconSearch">
+        <div class="nameApp">CONTACTS</div>
+        <div class="frmSearch">
+            <div class="iconSearch">
                 <ion-icon name="ios-search"></ion-icon>
+            </div>
+            <input type="search" id="search" name="searchInput">
         </div>
-        <input type="search" id="search" name="searchInput">
     </div>
-    </div>
+                           
     <div class="windowApp">
+                                <!-- DIV DEI BOTTONI FILTRO PER INIZIALE-->
         <div class="ltrNavBar">
             <div class="ltrLabel">A</div>
             <div class="ltrLabel">B</div>
@@ -69,11 +108,12 @@
             <div class="ltrLabel">Y</div>
             <div class="ltrLabel">Z</div>
         </div>
-        <div class="listWindow">                    <!--Finestra dei contatti-->
+                                        <!--FINESTRA LISTA CONTATTI-->
+        <div class="listWindow">                    
             <div class="bckButton">
                     <ion-icon name="ios-undo"></ion-icon>
             </div>
-            <div class="contactListWindow"></div>   <!--Finestra dei contatti-->
+            <div class="contactListWindow"></div> 
         </div>
         <div class="btnColor">
                 <ion-icon name="ios-brush"></ion-icon>
@@ -82,26 +122,40 @@
                 <ion-icon name="ios-add-circle-outline"></ion-icon>
         </div>
     </div>
-    </div>
+
 <script src="./myScript.js"></script>
 <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
 <script>
     var globalVar;
     window.onload = function() {
+        let colorPalette = document.getElementsByClassName('colorFormWindow')[0];
+        let palette = document.getElementsByClassName("paletteColor")[0].children;
+        let sureBtnOk = document.getElementsByClassName("sureBtn")[1];
+        let sureBtnCancel = document.getElementsByClassName("sureBtn")[0];
+        let sureWindow = document.getElementsByClassName('sureWindow')[0];
+        let formSureWindow = document.getElementsByClassName('sureForm')[0];
+        let editDataNumber = document.forms['editContactForm']['editpNumber'];
+        let editBtnX = document.getElementsByClassName('editBtn')[0];
+        let editBtnOK = document.getElementsByClassName('editBtn')[1]
+        let editFrm = document.forms['editContactForm'];
+        let editFrmWindow = document.getElementsByClassName('editformWindow')[0];
         let btnColor = document.getElementsByClassName('btnColor')[0];
-        let colorPalettte = document.getElementsByClassName('colorFormWindow')[0];
         let inputSearch = document.getElementById('search');
         let windowName = document.getElementsByClassName("nameApp")[0];
         let btnSearch = document.getElementsByClassName("iconSearch")[0];
+        let frmWindow = document.getElementsByClassName("formWindow")[0];
         let dataNumber = document.forms['newContactForm']['pNumber'];
         let listContact = document.getElementsByClassName("contactListWindow")[0];
         let btnNew = document.getElementsByClassName("btnNew")[0];
-        let frmWindow = document.getElementsByClassName("formWindow")[0];
         let frmButtonX = document.getElementsByClassName("btn")[0];
         let frmButtonOK = document.getElementsByClassName("btn")[1];
         let fltrButton = document.getElementsByClassName("ltrLabel");
         let backButtonVar = document.getElementsByClassName("bckButton")[0];
-        globalVar = new ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalettte, btnColor);
+        globalVar = new ButtonCons( btnNew, frmWindow, frmButtonX, frmButtonOK, listContact,
+                                    fltrButton, backButtonVar, dataNumber, btnSearch, windowName, 
+                                    inputSearch, colorPalette, btnColor, editFrmWindow, editFrm,
+                                    editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow,
+                                    sureBtnCancel, sureBtnOk, palette);
         
         globalVar.init();
     };

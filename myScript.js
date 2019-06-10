@@ -15,9 +15,22 @@
  * @param {HTMLElement} inputSearch
  * @param {HTMLElement} colorPalette
  * @param {HTMLElement} btnColor
+ * @param {HTMLElement} editFrmWindow
+ * @param {HTMLElement} editFrm
+ * @param {HTMLElement} editBtnX
+ * @param {HTMLElement} editBtnOK
+ * @param {HTMLElement} editDataNumber
+ * @param {HTMLElement} sureWindow
+ * @param {HTMLElement} formSureWindow
+ * @param {HTMLElement} sureBtnCancel
+ * @param {HTMLElement} sureBtnOk
+ * @param {HTMLElement} palette
  */
 
- function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar, dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor) {
+ function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar,
+                     dataNumber, btnSearch, windowName, inputSearch, colorPalette, btnColor, editFrmWindow,
+                     editFrm, editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow, sureBtnCancel,
+                     sureBtnOk, palette) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -29,8 +42,18 @@
      this.pBtnSearch = btnSearch;
      this.pWindowName = windowName;
      this.pInputSearch = inputSearch;
-     this.pClrPalette = colorPalette;
      this.pBtnColor = btnColor;
+     this.pEditFrmWindow = editFrmWindow;
+     this.pEditFrm = editFrm;
+     this.pEditBtnX = editBtnX;
+     this.pEditBtnOK = editBtnOK;
+     this.pEditDataNumber = editDataNumber;
+     this.pSrWindow = sureWindow;
+     this.pFrmSrWindow = formSureWindow;
+     this.pSrBtnCancel = sureBtnCancel;
+     this.pSrBtnOk = sureBtnOk;
+     this.pPalette = palette;
+     this.pClrPalette = colorPalette;
      this.contact = [];
  };
 
@@ -38,17 +61,17 @@
                                          /* FUNZIONE DOVE INIZIALIZZO I BOTTONI */
 
 ButtonCons.prototype.init = function init() {
-    let index = 0;
+    let index = this.pListContact.children.length;
     this.pBackButton.addEventListener ('click', () => { this.hideBackButton();
                                                         this.allCard()});
 
-    this.pButtonX.addEventListener ('click', () => {this.hide()});
+    this.pButtonX.addEventListener ('click', () => {this.hide(this.pFrmWindow)});
 
-    this.pButtonOK.addEventListener ('click', () => {  index = this.newContact(index);
-                                                        this.hide();
-                                                        this.clear()});
+    this.pButtonOK.addEventListener ('click', () => {  index =  this.newContact(index);
+                                                                this.hide(this.pFrmWindow);
+                                                                this.clear()});
 
-    this.pBtnNew.addEventListener ('click', () => {this.visible();
+    this.pBtnNew.addEventListener ('click', () => { this.visible(this.pFrmWindow);
                                                     this.clear();
                                                     this.hideBackButton();
                                                     this.allCard()});
@@ -59,76 +82,107 @@ ButtonCons.prototype.init = function init() {
                                                                 });
         }
 
-    this.pDataNumber.addEventListener ('keyup', (e) => {this.checkNumber (e)});
+    this.pDataNumber.addEventListener ('keyup', (e) => {this.pDataNumber.value = this.checkNumber (e, this.pDataNumber.value)});
+    this.pEditDataNumber.addEventListener ('keyup', (e) => {this.pEditDataNumber.value = this.checkNumber (e, this.pEditDataNumber.value)});
 
-    window.addEventListener ('click', (e) => {  this.animSearchWidth(e)
-                                                this.paletteVisible(e)});
+    window.addEventListener ('click', (e) => {  this.animSearchWidth(e)});
 
     this.pInputSearch.addEventListener ('input', () => {this.filterSearch()});
+
+    this.pEditBtnX.addEventListener ('click', () => {this.hide(this.pEditFrmWindow)});
+
+    this.pEditBtnOK.addEventListener ('click', () => {  this.editCard(this.pEditFrm);
+                                                        this.hide (this.pEditFrmWindow)});
+
+    this.pSrBtnCancel.addEventListener ('click', () => {this.hide(this.pSrWindow)});
+    this.pSrBtnOk.addEventListener ('click', (e) => {   this.cancelContact(e);
+                                                        this.hide(this.pSrWindow)});
+
+    this.pBtnColor.addEventListener ('click', () => {this.visible(this.pClrPalette)});
 };
 
-
-ButtonCons.prototype.hideBackButton = function hideBackButton() {
-    this.pBackButton.style.display = "none";
-}
-
-
-ButtonCons.prototype.showBackButton = function showBackButton() {
-    this.pBackButton.style.display = "block";
-}
 
 
                                         /* FUNZIONE PER RENDERE VISIBILE IL FORM */
 
-ButtonCons.prototype.visible = function visible(e) {
-    let x;
-    let frm = document.forms["newContactForm"];
-    let that = this;
-    this.pFrmWindow.style.visibility = "visible";
-        document.body.style.overflow = "hidden";
-    if (typeof e != 'undefined' ) {
-        console.log(e);
-        x = e.target.parentElement.parentElement;
-        frm["firstName"].value = x.getElementsByClassName("cName")[0].innerHTML;
-        frm["lastName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
-        frm["phoneNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;
-        that.pButtonOK.removeEventListener ('click', newContact);
-        //this.pButtonOK.addEventListener ('click', () => {that.editCard(x,frm), true
-                                                    
-    }
-    return;
+ButtonCons.prototype.visible = function visible(frm) {
+    frm.style.visibility = "visible";
+    document.body.style.overflow = "scroll";
 };
 
 
-ButtonCons.prototype.editCard = function editCard(x, frm) {
+                            /* FUNZIONE PER RENDERE VISIBILE IL FORM PER CAMBIARE DATI*/
+
+ButtonCons.prototype.editContact = function editContact (e) {
+    let x = e.target.parentElement.parentElement;
+    this.pEditFrmWindow.style.visibility = "visible";
+    this.pEditFrmWindow.style.overflow = "hidden";
+    this.pEditFrm["editfName"].value = x.getElementsByClassName("cName")[0].innerHTML;
+    this.pEditFrm["editlName"].value = x.getElementsByClassName("cLastName")[0].innerHTML;
+    this.pEditFrm["editpNumber"].value = x.getElementsByClassName("cPhoneNumber")[0].innerHTML;
+    this.pEditFrm.getElementsByClassName("idContact")[0].innerHTML = x.getElementsByClassName("index")[0].innerHTML;
+};
+
+
+                                                        /* FUNZIONE PER RENDERE INVISIBILE ALCUNE FINESTRE */
+
+ButtonCons.prototype.hide = function hide(windowAlert) {
+    windowAlert.style.visibility = "hidden";
+};
+
+//ButtonCons.prototype.editFrmHide =function editFrmHide () {
+//    this.pEditFrmWindow.style.visibility = "hidden";
+//};
+//
+//ButtonCons.prototype.sureHide = function sureHide() {
+//    this.pSrWindow.style.visibility = "hidden";
+//};
+
+
+ButtonCons.prototype.editCard = function editCard(frm) {
     let card = this.pListContact.children;
-    console.log(card);
-    //for ( let j=0; j< card.length; j++) {
-      //  if (x.getElementById("index").innerHTML==)
+    let indexFrm = frm.getElementsByClassName("idContact")[0].innerHTML;
+    for ( let j=0; j< card.length; j++) {
+        if (card[j].getElementsByClassName("index")[0].innerHTML== indexFrm) {
+            card[j].getElementsByClassName("cName")[0].innerHTML = frm["editfName"].value;
+            card[j].getElementsByClassName("cLastName")[0].innerHTML = frm["editlName"].value;
+            card[j].getElementsByClassName("cPhoneNumber")[0].innerHTML = frm["editpNumber"].value;
+        }
+    }
 }
 
 
-ButtonCons.prototype.paletteVisible = function paletteVisible(e) {
-    if (this.pBtnColor.contains(e.target)) {
-        this.pClrPalette.style.visibility = "visible";
-        document.body.style.overflow = "hidden";
-    } else {
-        this.pClrPalette.style.visibility = "hidden";
-        document.body.style.overflow = "scroll";
+
+
+ButtonCons.prototype.sureWindow = function sureWindow (e) {
+    let nameCard = e.path[2].getElementsByClassName("cName")[0].innerHTML;
+    let lastNameCard = e.path[2].getElementsByClassName("cLastName")[0].innerHTML;
+    let phoneNumberCard = e.path[2].getElementsByClassName("cPhoneNumber")[0].innerHTML;
+    
+    let indexCard = e.path[2].getElementsByClassName("index")[0].innerHTML;
+    
+    this.pSrWindow.style.visibility = "visible";
+    
+    this.pFrmSrWindow.getElementsByClassName("indexDel")[0].innerHTML = indexCard;
+    this.pFrmSrWindow.getElementsByClassName("sureFullName")[0].innerHTML = nameCard + "" + lastNameCard;
+    this.pFrmSrWindow.getElementsByClassName("surePhone")[0].innerHTML = phoneNumberCard;
+}
+
+ButtonCons.prototype.cancelContact = function cancelContact(e) {
+    let indexCard = e.path[2].getElementsByClassName("indexDel")[0].innerHTML;
+    let cards = this.pListContact.children;
+    let deleteIn = this.pListContact.childNodes[indexCard];
+    this.pListContact.removeChild(deleteIn);
+    for ( let i=0; i<cards.length; i++) {
+        cards[i].getElementsByClassName("index")[0].innerHTML = i;
     }
-};
-
-                                        /* FUNZIONE PER RENDERE INVISIBILE IL FORM */
-
-ButtonCons.prototype.hide = function hide() {
-    this.pFrmWindow.style.visibility = "hidden";
-    document.body.style.overflow = "scroll";
-};
+}
 
 
                                     /* FUNZIONE PER AGGIUNGERE IL CONTATTO E CREARE LA CARTA */
 
 ButtonCons.prototype.newContact = function newContact(index) {
+    index = this.pListContact.children.length;
     let x = document.forms["newContactForm"];
     let name = x["firstName"].value;
     let lastname = x["lastName"].value;
@@ -164,9 +218,11 @@ ButtonCons.prototype.newContact = function newContact(index) {
     panelButtons.appendChild(cancel);
     card.appendChild(panelButtons);
     
-    edit.addEventListener('click',(e) => {that.visible(e)});
+    edit.addEventListener('click',(e) => {that.editContact(e)});
+    cancel.addEventListener('click', (e) => {that.sureWindow(e)});
     this.pListContact.appendChild(card);
     index += 1;
+    console.log(index);
     return index;
     }
 };
@@ -201,12 +257,15 @@ ButtonCons.prototype.createTitle = function createTitle(valore) {
 
                                         /* FUNZIONE PER METTERE I VALORI IN UN DIV PER ALLINEARLI A DESTRA */
 
-ButtonCons.prototype.createData = function createData(valore, pClass) {        //Questa funzione prende il valore di Name
-    let data = document.createElement('div');                           // e lo associa a valore
-    data.classList.add(pClass);                                         //Poi crea una varibile data dove crea
-    data.innerHTML = valore;                                            // <div class="data"></div> e mette dentro
-    return data;                                                       // valore => <div class="data">valore</div>
-}                                                                       // e con return la restituisce
+ButtonCons.prototype.createData = function createData(valore, pClass) { 
+    let data = document.createElement('div');                          
+    data.classList.add(pClass);                                         
+    data.innerHTML = valore;                                            
+    return data;                                    
+}                                                                      
+
+
+                                        /* FUNZIONE CHE CANCELLA I VALORI ALL'NTERNO DEL FORM */
 
 ButtonCons.prototype.clear = function clear() {
     let x = document.forms["newContactForm"];
@@ -218,22 +277,38 @@ ButtonCons.prototype.clear = function clear() {
 
                                         /* FUNZIONE CHE FILTRA I CONTATTI PER L'INIZIALE DEL NOME */
 
-ButtonCons.prototype.filter = function filter(label) {             //label è la variabile di appoggio 
+ButtonCons.prototype.filter = function filter(label) {              
     let card;
+    
     if (this.pListContact.children.length > 0) {
         card = this.pListContact.children;
         for ( let j=0; j< card.length; j++) {
-            if  (card[j].children[0].innerText.charAt(0)!=label) {
+            if  (card[j].getElementsByClassName("cName")[0].innerText.charAt(0)!=label) {
                 card[j].style.display = "none";
             }
         }
         this.showBackButton();
     }
     else {
-             alert("nessun contatto")
+             alert("Nessun Contatto nella rubrica");
     }
     
 }
+
+
+                                                /* FUNZIONE CHE NASCONDE IL BOTTONE BACK*/
+
+ButtonCons.prototype.hideBackButton = function hideBackButton() {
+    this.pBackButton.style.display = "none";
+}
+
+                
+                                                /* FUNZIONE CHE FA APPARIRE IL BOTTONE BACK*/
+                                                        
+ButtonCons.prototype.showBackButton = function showBackButton() {
+    this.pBackButton.style.display = "block";
+}
+                                                        
 
                                             /* FUNZIONE CHE MI FA VEDERE LA LISTA INTERA */
 
@@ -247,20 +322,21 @@ ButtonCons.prototype.allCard = function allCard () {
 
                                         /* METODO DI CONTROLLO NUMERO DI TELEFONO NEL FORM */
 
-ButtonCons.prototype.checkNumber = function checkNumber (e) {
+ButtonCons.prototype.checkNumber = function checkNumber (e, value) {
     let key = e.keyCode;
     if (key < 48 || key > 57) {
-        x = this.pDataNumber.value.slice(0,this.pDataNumber.value.length-1);
-        this.pDataNumber.value = x;
+        x = value.slice(0,value.length-1);
+        value = x;
+        return value;
     }
     else {
-        return;
+        return value;
     }
 
 }
 
 
-                                        /* FUNZIONI DI ANIMAZIONE DELL'INPUT DI RICERCA */
+                                            /* FUNZIONE DI ANIMAZIONE DELL'INPUT DI RICERCA */
 
 ButtonCons.prototype.animSearchWidth = function animSearchWidth (e) {
     if  (this.pBtnSearch.contains(e.target) || this.pInputSearch.contains(e.target)) {
@@ -280,7 +356,6 @@ ButtonCons.prototype.animSearchWidth = function animSearchWidth (e) {
                     document.getElementById("search").style.width = frmW + "px";
                 }
             }
-            //this.pInputSearch.style.border = "1px solid #273575";
         }
     } else {
         let frmW = 160;
@@ -315,7 +390,7 @@ ButtonCons.prototype.filterSearch = function filterSearch() {
     let card = this.pListContact.children;
     let x;
     for (let i=0; i < card.length; i++) {
-        x = card[i].children[0].innerHTML.slice(0,key.length);
+        x = card[i].getElementsByClassName("cName")[0].innerHTML.slice(0,key.length);
         if (x != key) {
             card[i].style.display = "none";
         }
