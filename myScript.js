@@ -29,12 +29,13 @@
  * @param {HTMLElement} windowApp
  * @param {HTMLElement} iconSearch
  * @param {HTMLElement} iconBack
+ * @param {HTMLElement} idColor
  */
 
  function ButtonCons(btnNew, frmWindow, frmButtonX, frmButtonOK, listContact, fltrButton, backButtonVar,
                      dataNumber, btnSearch, windowName, inputSearch, colorPaletteForm, btnColor, editFrmWindow,
                      editFrm, editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow, sureBtnCancel,
-                     sureBtnOk, palette, containerTitle, windowApp, iconSearch, iconBack) {
+                     sureBtnOk, palette, containerTitle, windowApp, iconSearch, iconBack, idColor) {
      this.pListContact = listContact;
      this.pBtnNew = btnNew;
      this.pFrmWindow = frmWindow;
@@ -62,6 +63,7 @@
      this.pWindowApp = windowApp;
      this.pIconSearch = iconSearch;
      this.pIconBack = iconBack;
+     this.pIdColor = idColor;
      this.contact = [];
  };
 
@@ -229,6 +231,27 @@ ButtonCons.prototype.newContact = function newContact(index) {
     
     edit.addEventListener('click',(e) => {that.editContact(e)});
     cancel.addEventListener('click', (e) => {that.sureWindow(e)});
+
+    //Decide what color to put on card
+    switch (this.pIdColor.innerHTML) {
+        case "B" :
+            card.style.backgroundColor = "#66D6F2";
+            edit.children[0].style.color = "#273575";
+            break;
+        case "R" :
+            card.style.backgroundColor = "#CC5667";
+            edit.children[0].style.color = "#4F2024";
+            break;
+        case "P" :
+            card.style.backgroundColor = "#FFBAD6";
+            edit.children[0].style.color = "#704C50";
+            break;
+        case "Y" :
+            card.style.backgroundColor = "#FFD363";
+            edit.children[0].style.color = "#A6762E";
+            break;
+    }
+    console.log(edit);
     this.pListContact.appendChild(card);
     index += 1;
     return index;
@@ -259,7 +282,23 @@ ButtonCons.prototype.createCancel = function createCancel() {
 ButtonCons.prototype.createTitle = function createTitle(valore) {        
     let title = document.createElement('div');                          
     title.classList.add("title");                                        
-    title.innerHTML = valore;                                           
+    title.innerHTML = valore;
+
+    //Decide what color to put on card
+    switch (this.pIdColor.innerHTML) {
+        case "B" :
+            title.style.color = "#273575";
+            break;
+        case "R" :
+            title.style.color = "#4F2024";
+            break;
+        case "P" :
+            title.style.color = "#704C50";
+            break;
+        case "Y" :
+            title.style.color = "#A6762E";
+            break;
+    }                                           
     return title;                                                       
 } 
 
@@ -414,7 +453,7 @@ ButtonCons.prototype.filterSearch = function filterSearch() {
 ButtonCons.prototype.changeColor = function changeColor(e) {
     //let x = document.getElementsByClassName("cardButtons")[0];
    // x = x.getElementsByClassName("editButton")[0].children[0];
-    //console.log(x)
+    let cards = this.pListContact.children
     switch (e.target.className) {
         case "blue":
             //Base color
@@ -439,6 +478,18 @@ ButtonCons.prototype.changeColor = function changeColor(e) {
 
             //Title color
             this.pWindowName.style.color = "#273575";
+            
+            //Changing color for all cards
+            for(let i = 0; i < cards.length; i++) {
+                cards[i].style.backgroundColor = "#66D6F2";
+                for (let j = 0; j < cards[i].getElementsByClassName("title").length; j++){
+                cards[i].getElementsByClassName("title")[j].style.color = "#273575";
+                }
+                cards[i].getElementsByClassName("editButton")[0].children[0].style.color = "#273575";
+            }
+
+            //id Color for styling the cards when created;
+            this.pIdColor.innerHTML = "B";
             
             break;
         case "red":
@@ -465,6 +516,18 @@ ButtonCons.prototype.changeColor = function changeColor(e) {
             //Title color
             this.pWindowName.style.color = "#4F2024";
 
+            //Changing color for all cards
+            for(let i = 0; i < cards.length; i++) {
+                cards[i].style.backgroundColor = "#CC5667";
+                for (let j = 0; j < cards[i].getElementsByClassName("title").length; j++){
+                    cards[i].getElementsByClassName("title")[j].style.color = "#4F2024";
+                    }
+                    cards[i].getElementsByClassName("editButton")[0].children[0].style.color = "#4F2024";
+                }
+
+            //id Color for styling the cards when created;
+            this.pIdColor.innerHTML = "R";
+
             break;
         case "pink":
             //Base color
@@ -489,13 +552,25 @@ ButtonCons.prototype.changeColor = function changeColor(e) {
             //Title color
             this.pWindowName.style.color = "#704C50";
 
+            //Changing color for all cards
+            for(let i = 0; i < cards.length; i++) {
+                cards[i].style.backgroundColor = "#FFBAD6";
+                for (let j = 0; j < cards[i].getElementsByClassName("title").length; j++){
+                    cards[i].getElementsByClassName("title")[j].style.color = "#704C50";
+                    }
+                    cards[i].getElementsByClassName("editButton")[0].children[0].style.color = "#704C50";
+                }
+
+            //id Color for styling the cards when created;
+            this.pIdColor.innerHTML = "P";
+
             break;
         case "yellow":
             //Base color
             this.pCntnrTitle.style.backgroundColor = "#FFDD54";
             for (let i = 0; i < this.pFltrButton.length; i++) {
                 this.pFltrButton[i].style.backgroundColor = "#FFDD54";
-                this.pFltrButton[i].style.color = "#C78E38";
+                this.pFltrButton[i].style.color = "#A6762E";
             }
             this.pBtnColor.style.backgroundColor = "#FFDD54";
 
@@ -506,12 +581,25 @@ ButtonCons.prototype.changeColor = function changeColor(e) {
             this.pClrChange.children[0].style.backgroundColor = "#F5F4DA";
 
             //Icons color
-            this.pIconSearch.children[0].style.color = "#C78E38";
-            this.pIconBack.children[0].style.color = "#C78E38";
-            this.pBtnColor.children[0].style.color = "#C78E38";
+            this.pIconSearch.children[0].style.color = "#A6762E";
+            this.pIconBack.children[0].style.color = "#A6762E";
+            this.pBtnColor.children[0].style.color = "#A6762E";
 
             //Title color
-            this.pWindowName.style.color = "#C78E38";
+            this.pWindowName.style.color = "#A6762E";
+
+            //Changing color for all cards
+            for(let i = 0; i < cards.length; i++) {
+                cards[i].style.backgroundColor = "#FFD363";
+                for (let j = 0; j < cards[i].getElementsByClassName("title").length; j++) {
+                    cards[i].getElementsByClassName("title")[j].style.color = "#A6762E";
+                }
+                    cards[i].getElementsByClassName("editButton")[0].children[0].style.color = "#A6762E";
+                }
+
+            //id Color for styling the cards when created;
+            this.pIdColor.innerHTML = "Y";
+
             break;
     }
 }

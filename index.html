@@ -76,6 +76,7 @@
             <div id="palette" class="red"></div>
             <div id="palette" class="yellow"></div>
             <div id="palette" class="pink"></div>
+            <div class="colorId">B</div>
         </div>
     </div>
                             <!--DIV DEL NOME DELLA APP E DELLA FUNZIONE RICERCA-->
@@ -140,6 +141,7 @@
 <script>
     var globalVar;
     window.onload = function() {
+        let idColor = document.getElementsByClassName('colorId')[0];
         let iconBack = document.getElementsByClassName('bckButton')[0];
         let iconSearch = document.getElementsByClassName('iconSearch')[0];
         let windowApp = document.getElementsByClassName('windowApp')[0];
@@ -172,7 +174,7 @@
                                     inputSearch, colorPaletteForm, btnColor, editFrmWindow, editFrm,
                                     editBtnX, editBtnOK, editDataNumber, sureWindow, formSureWindow,
                                     sureBtnCancel, sureBtnOk, palette, containerTitle, windowApp,
-                                    iconSearch, iconBack);
+                                    iconSearch, iconBack, idColor);
         
         globalVar.init();
     };

@@ -52,6 +52,15 @@ form, .sureForm {
     border-radius: 50%;
 }
 
+.blue:active, .blue:active {
+    border: 3px solid lightblue;
+    background-color: #A3C8E3;
+    width: 60px;
+    height: 60px;
+    margin: 22px;
+    border-radius: 50%;
+}
+
 .red {
     border: 3px solid pink;
     background-color: red;
@@ -228,7 +237,7 @@ input[type=search] {
 
 .card {
     height: 250px;
-    background-color: #9CEEFF;
+    background-color: #66D6F2;
     margin: 15px;
     border-radius: 10px;
     padding: 15px;
@@ -323,9 +332,10 @@ input[type=search] {
     background-color: #66AB18;
 }
 
-.idContact, .indexDel, .index {
+.idContact, .indexDel, .index, .colorId {
     display: none;
 }
+
 #palette:hover, .sureBtn:hover, .editBtn:hover, .btnColor:hover, .editButton:hover, .cancelButton:hover, .btnNew:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
